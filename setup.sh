@@ -159,7 +159,7 @@ echo "    update393 -c generate -f" >> $CONF_NOTES
 echo "" >> $CONF_NOTES
 
 CURRENT_PATH2=$(dirname $(readlink -f "$0"))
-. ./oe-init-build-env
+. ./oe-init-build-env build
 
 BBLAYERS_CONF="conf/bblayers.conf"
 
