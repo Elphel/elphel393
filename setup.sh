@@ -9,7 +9,7 @@ E393_ROOTFSDIR="rootfs-elphel"
 E393_LINUX_ADDR="https://github.com/Elphel/linux-elphel.git"
 E393_LINUX_ROOT="linux-elphel"
 E393_LINUX_BRANCH="master"
-E393_LINUX_HASH="36a8eb4e3e874311d3442016842feb7922791243"
+E393_LINUX_HASH="cc50d7fa07140e680b09a8add617e62b4ba35aa0"
 
 #X393
 E393_FPGA1_ADDR="https://github.com/Elphel/x393.git"
@@ -45,7 +45,7 @@ EZQHASH="d3a055fc82fff990f9f2cdb8c09eb948133cf6f4"
 E393ADDR="https://github.com/Elphel/meta-elphel393.git"
 E393ROOT="meta-elphel393"
 E393BRANCH="master"
-E393HASH="56e3c1b7007faab1ccd4d983348b249d610165d6"
+E393HASH="f4048a3eba537fda25e351e2c1303ad04e490ee0"
 
 if [ $1 = "dev" ]; then
 	E393_LINUX_HASH=""
