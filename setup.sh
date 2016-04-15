@@ -181,4 +181,4 @@ LOCAL_CONF="conf/local.conf"
 # change the MACHINE
 echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
 # Elphel's MIRROR website, \n is important
-echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \n \"" >> $LOCAL_CONF
+echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
