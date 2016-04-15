@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Download and setup everything
 
 E393_METADIR="meta"
