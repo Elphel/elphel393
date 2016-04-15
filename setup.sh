@@ -39,7 +39,7 @@ XLNXHASH="cc146d6c170f100eb2f445047969893faa7a6a55"
 EZQADDR="https://github.com/Elphel/meta-ezynq.git"
 EZQROOT="meta-ezynq"
 EZQBRANCH="master"
-EZQHASH="d3a055fc82fff990f9f2cdb8c09eb948133cf6f4"
+EZQHASH="00496002f513fc253f5356ee675fdcbb8b4a9962"
 
 #META ELPHEL393
 E393ADDR="https://github.com/Elphel/meta-elphel393.git"
