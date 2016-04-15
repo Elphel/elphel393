@@ -45,7 +45,7 @@ EZQHASH="d3a055fc82fff990f9f2cdb8c09eb948133cf6f4"
 E393ADDR="https://github.com/Elphel/meta-elphel393.git"
 E393ROOT="meta-elphel393"
 E393BRANCH="master"
-E393HASH="f4048a3eba537fda25e351e2c1303ad04e490ee0"
+E393HASH="a93edc1f91e82e5e613fa38bd800e307c348b9ee"
 
 if [ $1 = "dev" ]; then
 	E393_LINUX_HASH=""
@@ -182,20 +182,3 @@ LOCAL_CONF="conf/local.conf"
 echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
 # Elphel's MIRROR website, \n is important
 echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \n \"" >> $LOCAL_CONF
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
