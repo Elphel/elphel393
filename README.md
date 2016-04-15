@@ -4,17 +4,19 @@ installation script for fetching and setting up building environment for elphel3
 ### Get environment
 #### Stable
 ```sh
-$ source setup.sh
+$ ./setup.sh
 ```
 #### Latest
 ```sh
-$ source setup.sh dev
+$ ./setup.sh dev
 ```
 
 * Will switch directory to *poky/build*
 
-### Build targets all at once
+### Build targets
 ```sh
+$ cd poky
+$ . ./oe-init-build-env
 $ bitbake u-boot device-tree linux-xlnx core-image-elphel393
 ```
 * poky might require installing some packages, please check with the [Yocto Poky Manual][1] 
