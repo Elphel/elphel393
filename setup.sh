@@ -127,8 +127,8 @@ else
 fi
 cd $E393_ROOTFSDIR
 #Clone user space applications
-for elem in $(seq 0 4 $((${APPS_ARRAY[@]} - 1))); do
-	cloneandcheckout ${APPS_ARRAY[$elem]} ${APPS_ARRAY[$elem+1]} ${APPS_ARRAY[$elem+2]} ${APPS_ARRAY[$elem+3]}
+for elem in $(seq 0 4 $((${#APPS_ARRAY[@]} - 1))); do
+	cloneandcheckout "${APPS_ARRAY[$elem]}" "${APPS_ARRAY[$elem+1]}" "${APPS_ARRAY[$elem+2]}" "${APPS_ARRAY[$elem+3]}"
 done
 cd ..
 
