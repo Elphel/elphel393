@@ -47,6 +47,19 @@ E393ROOT="meta-elphel393"
 E393BRANCH="master"
 E393HASH="a93edc1f91e82e5e613fa38bd800e307c348b9ee"
 
+# List of Elphel user space applications. The list is organized as bash array and thus have predefined structure.
+# Each entry in the list consists of four elements: link to repository, application name, branch and commit hash.
+# If either of the fields is not used then leave double quotes in place of this field.
+APPS_ARRAY=(
+#imgsrv
+"https://github.com/Elphel/elphel-apps-imgsrv.git"
+"elphel-apps-imgsrv"
+"master"
+""
+#add new app below
+)
+
+
 if [ $1 = "dev" ]; then
 	E393_LINUX_HASH=""
 	E393_FPGA1_HASH=""
@@ -113,7 +126,10 @@ else
 	echo "  $E393_ROOTFSDIR exists"
 fi
 cd $E393_ROOTFSDIR
-#Clone some projects
+#Clone user space applications
+for elem in $(seq 0 4 $((${APPS_ARRAY[@]} - 1))); do
+	cloneandcheckout ${APPS_ARRAY[$elem]} ${APPS_ARRAY[$elem+1]} ${APPS_ARRAY[$elem+2]} ${APPS_ARRAY[$elem+3]}
+done
 cd ..
 
 
