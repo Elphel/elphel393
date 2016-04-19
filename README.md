@@ -11,8 +11,6 @@ $ ./setup.sh
 $ ./setup.sh dev
 ```
 
-* Will switch directory to *poky/build*
-
 ### Build targets
 ```sh
 $ cd poky
