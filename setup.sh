@@ -78,7 +78,10 @@ cloneandcheckout () {
 		git checkout $4
 		cd ..
 	else
-		echo "    Already cloned - doing nothing"
+		echo "    Already cloned - running git pull"
+		cd $2
+		git pull
+		cd ..
 	fi
 }
 
