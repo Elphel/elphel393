@@ -60,7 +60,7 @@ APPS_ARRAY=(
 )
 
 
-if [ $1 = "dev" ]; then
+if [ "$1" = "dev" ]; then
 	E393_LINUX_HASH=""
 	E393_FPGA1_HASH=""
 	EZQHASH=""
