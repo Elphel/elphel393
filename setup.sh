@@ -56,6 +56,11 @@ APPS_ARRAY=(
 "elphel-apps-imgsrv"
 "master"
 ""
+#php extension
+"https://github.com/Elphel/elphel-apps-php-extension.git"
+"elphel-apps-php-extension"
+"master"
+""
 #add new app below
 )
 
