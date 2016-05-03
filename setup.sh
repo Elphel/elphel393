@@ -61,6 +61,11 @@ APPS_ARRAY=(
 "elphel-apps-php-extension"
 "master"
 ""
+#camogm
+"https://github.com/Elphel/elphel-apps-camogm.git"
+"elphel-apps-camogm"
+"master"
+""
 #add new app below
 )
 
