@@ -17,6 +17,12 @@ E393_FPGA1_ROOT="x393"
 E393_FPGA1_BRANCH="master"
 E393_FPGA1_HASH="edcdce9550c20726618210149bc1cb4549fd00be"
 
+#X393_SATA
+E393_SATA_FPGA1_ADDR="https://github.com/Elphel/x393_sata.git"
+E393_SATA_FPGA1_ROOT="x393_sata"
+E393_SATA_FPGA1_BRANCH="master"
+E393_SATA_FPGA1_HASH=""
+
 #POKY
 POKYADDR="git://git.yoctoproject.org/poky.git"
 POKYROOT="poky"
@@ -73,6 +79,7 @@ APPS_ARRAY=(
 if [ "$1" = "dev" ]; then
 	E393_LINUX_HASH=""
 	E393_FPGA1_HASH=""
+	E393_SATA_FPGA1_HASH=""
 	EZQHASH=""
 	E393HASH=""
 fi
@@ -127,6 +134,9 @@ if [ -f $E393_FPGA1_ROOT/py393/generate_c.sh ]; then
 		fi
 	fi
 fi
+
+cloneandcheckout $E393_SATA_FPGA1_ADDR $E393_SATA_FPGA1_ROOT $E393_SATA_FPGA1_BRANCH $E393_SATA_FPGA1_HASH
+
 cd ..
 
 
