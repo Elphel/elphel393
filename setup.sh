@@ -192,16 +192,23 @@ echo "    u-boot" >> $CONF_NOTES
 echo "    device-tree" >> $CONF_NOTES
 echo "    linux-xlnx" >> $CONF_NOTES
 echo "    core-image-elphel393" >> $CONF_NOTES
-echo "Extra targets (somewhat useful for development) are:" >> $CONF_NOTES
-echo "    update393 -c pull -f" >> $CONF_NOTES
-echo "    update393 -c generate -f" >> $CONF_NOTES
 echo "" >> $CONF_NOTES
 
 CURRENT_PATH2=$(dirname $(readlink -f "$0"))
 echo "CHECKPOINT "$CURRENT_PATH2
-. ./oe-init-build-env build
-
 BBLAYERS_CONF="conf/bblayers.conf"
+LOCAL_CONF="conf/local.conf"
+if [ -f build/$BBLAYERS_CONF ]; then
+    echo "removing build/$BBLAYERS_CONF, a new file will be regenerated"
+    rm build/$BBLAYERS_CONF
+fi 
+if [ -f build/$LOCAL_CONF ]; then
+    echo "removing build/$LOCAL_CONF, a new file will be regenerated"
+    rm build/$LOCAL_CONF
+fi 
+echo ""
+
+. ./oe-init-build-env build
 
 echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
 echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
@@ -216,8 +223,11 @@ echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\" >> $BBLAYERS_C
 echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\" >> $BBLAYERS_CONF
 echo "  \"" >> $BBLAYERS_CONF
 
-LOCAL_CONF="conf/local.conf"
-
+#distro features: systemd
+#echo "DISTRO_FEATURES_append = \" systemd\"" >> $LOCAL_CONF
+#echo "VIRTUAL-RUNTIME_init_manager = \"systemd\"" >> $LOCAL_CONF
+#echo "DISTRO_FEATURES_BACKFILL_CONSIDERED = \"sysvinit\"" >> $LOCAL_CONF
+#echo "VIRTUAL-RUNTIME_initscripts = \"\"" >> $LOCAL_CONF
 # change the MACHINE
 echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
 # Elphel's MIRROR website, \n is important
