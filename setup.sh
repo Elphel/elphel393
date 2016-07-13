@@ -41,6 +41,12 @@ XLNXROOT="meta-xilinx"
 XLNXBRANCH="master"
 XLNXHASH="cc146d6c170f100eb2f445047969893faa7a6a55"
 
+#META SWUPDATE
+SWUADDR="https://github.com/sbabic/meta-swupdate.git"
+SWUROOT="meta-swupdate"
+SWUBRANCH="master"
+SWUHASH="f6ab29cfac2b9c6da8881c754e2a316ea43b884d"
+
 #META EZYNQ
 EZQADDR="https://github.com/Elphel/meta-ezynq.git"
 EZQROOT="meta-ezynq"
@@ -169,6 +175,8 @@ echo "  meta-openembedded:"
 cloneandcheckout $MOEADDR $MOEROOT $MOEBRANCH $MOEHASH
 echo "  meta-xilinx:"
 cloneandcheckout $XLNXADDR $XLNXROOT $XLNXBRANCH $XLNXHASH
+echo "  meta-swupdate:"
+cloneandcheckout $SWUADDR $SWUROOT $SWUBRANCH $SWUHASH
 echo "  meta-ezynq:"
 cloneandcheckout $EZQADDR $EZQROOT $EZQBRANCH $EZQHASH
 echo "  meta-elphel393:"
