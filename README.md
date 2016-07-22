@@ -1,5 +1,15 @@
 # elphel393
-installation script for fetching and setting up building environment for elphel393 camera images
+Installation script for fetching and setting up building environment for elphel393 camera images,
+it clones and configures several individual repositories, such as
+* https://github.com/Elphel/linux-elphel
+* https://github.com/Elphel/x393
+* http://git.yoctoproject.org
+* http://git.openembedded.org
+* https://github.com/Xilinx/meta-xilinx
+* https://github.com/Xilinx/meta-xilinx
+* https://github.com/Elphel/meta-elphel393
+ 
+The same script pulls updates from these repositories
 
 ### Get environment
 #### Stable
