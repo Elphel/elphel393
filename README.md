@@ -6,7 +6,6 @@ it clones and configures several individual repositories, such as
 * http://git.yoctoproject.org
 * http://git.openembedded.org
 * https://github.com/Xilinx/meta-xilinx
-* https://github.com/Xilinx/meta-xilinx
 * https://github.com/Elphel/meta-elphel393
  
 The same script pulls updates from these repositories
