@@ -8,14 +8,14 @@ E393_ROOTFSDIR="rootfs-elphel"
 #LINUX ELPHEL
 E393_LINUX_ADDR="https://github.com/Elphel/linux-elphel.git"
 E393_LINUX_ROOT="linux-elphel"
-E393_LINUX_BRANCH="master"
-E393_LINUX_HASH="cc50d7fa07140e680b09a8add617e62b4ba35aa0"
+E393_LINUX_BRANCH="master-next"
+E393_LINUX_HASH=""
 
 #X393
 E393_FPGA1_ADDR="https://github.com/Elphel/x393.git"
 E393_FPGA1_ROOT="x393"
 E393_FPGA1_BRANCH="master"
-E393_FPGA1_HASH="edcdce9550c20726618210149bc1cb4549fd00be"
+E393_FPGA1_HASH=""
 
 #X393_SATA
 E393_SATA_FPGA1_ADDR="https://github.com/Elphel/x393_sata.git"
@@ -27,19 +27,19 @@ E393_SATA_FPGA1_HASH=""
 POKYADDR="git://git.yoctoproject.org/poky.git"
 POKYROOT="poky"
 POKYBRANCH="master"
-POKYHASH="3d2c0f5902cacf9d8544bf263b51ef0dd1a7218c"
+POKYHASH="039f47ad197a9a53109c9f3deadd9c35e62c056d"
 
 #META OPENEMBEDDED
 MOEADDR="git://git.openembedded.org/meta-openembedded"
 MOEROOT="meta-openembedded"
 MOEBRANCH="master"
-MOEHASH="73854a05565b30a5ca146ac53959c679b27815aa"
+MOEHASH="5c69367d848271cdf3a3bd1a087665f324d3fd34"
 
 #META XILINX
 XLNXADDR="https://github.com/Xilinx/meta-xilinx.git"
 XLNXROOT="meta-xilinx"
 XLNXBRANCH="master"
-XLNXHASH="cc146d6c170f100eb2f445047969893faa7a6a55"
+XLNXHASH="60985416089f7db0eab527396b18c9e5480a2979"
 
 #META SWUPDATE
 SWUADDR="https://github.com/sbabic/meta-swupdate.git"
@@ -51,13 +51,13 @@ SWUHASH="f6ab29cfac2b9c6da8881c754e2a316ea43b884d"
 EZQADDR="https://github.com/Elphel/meta-ezynq.git"
 EZQROOT="meta-ezynq"
 EZQBRANCH="master"
-EZQHASH="00496002f513fc253f5356ee675fdcbb8b4a9962"
+EZQHASH=""
 
 #META ELPHEL393
 E393ADDR="https://github.com/Elphel/meta-elphel393.git"
 E393ROOT="meta-elphel393"
-E393BRANCH="master"
-E393HASH="a93edc1f91e82e5e613fa38bd800e307c348b9ee"
+E393BRANCH="master-next"
+E393HASH=""
 
 # List of Elphel user space applications. The list is organized as bash array and thus have predefined structure.
 # Each entry in the list consists of four elements: link to repository, application name, branch and commit hash.
@@ -220,7 +220,7 @@ echo ""
 
 echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
 echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta-yocto \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH2/meta-poky \\" >> $BBLAYERS_CONF
 echo "  $CURRENT_PATH2/meta-yocto-bsp \\" >> $BBLAYERS_CONF
 echo "  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\" >> $BBLAYERS_CONF
 echo "  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\" >> $BBLAYERS_CONF
