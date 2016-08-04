@@ -101,14 +101,23 @@ cloneandcheckout () {
 		git checkout $4
 		cd ..
 	else
-		echo "    Already cloned - running git pull"
-		cd $2
-		git pull
-		cd ..
+		if [ ! -z $4 ]; then 
+			echo "    Already cloned - checked out at $3 $4"
+		else
+			echo "    Already cloned - check out branch then git pull"
+			cd $2
+			git checkout $3
+			git pull
+			cd ..
+		fi
 	fi
 }
 
-echo "Step 1: Clone kernel project"
+
+
+echo "Step 1: Clone kernel project
+"
+
 cloneandcheckout $E393_LINUX_ADDR $E393_LINUX_ROOT $E393_LINUX_BRANCH $E393_LINUX_HASH
 if [ ! -f $E393_LINUX_ROOT/.project ]; then
 	echo "  Copying up files for Eclipse project"
@@ -120,7 +129,10 @@ fi
 
 
 
-echo "Step 2: Clone fpga projects"
+echo "
+Step 2: Clone fpga projects
+"
+
 if [ ! -d $E393_FPGADIR ]; then
 	echo "  Creating $E393_FPGADIR"
 	mkdir $E393_FPGADIR
@@ -147,7 +159,10 @@ cd ..
 
 
 
-echo "Step 3: Clone applications and libraries projects"
+echo "
+Step 3: Clone applications and libraries projects
+"
+
 if [ ! -d $E393_ROOTFSDIR ]; then
 	echo "  Creating $E393_ROOTFSDIR"
 	mkdir $E393_ROOTFSDIR
@@ -163,7 +178,10 @@ cd ..
 
 
 
-echo "Step 4: Extra meta layers"
+echo "
+Step 4: Extra meta layers
+"
+
 if [ ! -d $E393_METADIR ]; then
 	echo "  Creating $ELPHEL393_METADIR"
 	mkdir $E393_METADIR
@@ -185,7 +203,10 @@ cd ..
 
 
 
-echo "Step 5: Poky"
+echo "
+Step 5: Poky
+"
+
 cloneandcheckout $POKYADDR $POKYROOT $POKYBRANCH $POKYHASH
 
 CURRENT_PATH1=$(dirname $(readlink -f "$0"))
