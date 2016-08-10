@@ -78,6 +78,11 @@ APPS_ARRAY=(
 "elphel-apps-camogm"
 "master"
 ""
+#udev rules
+"https://github.com/Elphel/elphel-udev-rules.git"
+"elphel-udev-rules"
+"master"
+""
 #add new app below
 )
 
