@@ -71,7 +71,7 @@ APPS_ARRAY=(
 #php extension
 "https://github.com/Elphel/elphel-apps-php-extension.git"
 "elphel-apps-php-extension"
-"master"
+"framepars"
 ""
 #camogm
 "https://github.com/Elphel/elphel-apps-camogm.git"
