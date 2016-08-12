@@ -66,7 +66,7 @@ APPS_ARRAY=(
 #imgsrv
 "https://github.com/Elphel/elphel-apps-imgsrv.git"
 "elphel-apps-imgsrv"
-"master"
+"framepars"
 ""
 #php extension
 "https://github.com/Elphel/elphel-apps-php-extension.git"
@@ -76,6 +76,11 @@ APPS_ARRAY=(
 #camogm
 "https://github.com/Elphel/elphel-apps-camogm.git"
 "elphel-apps-camogm"
+"framepars"
+""
+#udev rules
+"https://github.com/Elphel/elphel-udev-rules.git"
+"elphel-udev-rules"
 "master"
 ""
 #add new app below
@@ -113,7 +118,17 @@ cloneandcheckout () {
 	fi
 }
 
-
+# copy Eclipse projects settings if they are present in a special directory AND not in project directory
+ECLIPSE_PROJECT_SETUP="eclipse_project_setup"
+copy_eclipse_settings () {
+	if [ ! -f "$1/.project" ] && [ -d "$1/$ECLIPSE_PROJECT_SETUP" ]; then
+		echo "  Copying up files for Eclipse project"
+		echo "  Copying $1/$ECLIPSE_PROJECT_SETUP $1"
+		rsync -v -a $1/$ECLIPSE_PROJECT_SETUP/ $1/
+	else
+		echo "  NOT Copying up files for Eclipse project"
+	fi
+}
 
 echo "Step 1: Clone kernel project
 "
@@ -173,6 +188,7 @@ cd $E393_ROOTFSDIR
 #Clone user space applications
 for elem in $(seq 0 4 $((${#APPS_ARRAY[@]} - 1))); do
 	cloneandcheckout "${APPS_ARRAY[$elem]}" "${APPS_ARRAY[$elem+1]}" "${APPS_ARRAY[$elem+2]}" "${APPS_ARRAY[$elem+3]}"
+	copy_eclipse_settings "${APPS_ARRAY[$elem+1]}"
 done
 cd ..
 
