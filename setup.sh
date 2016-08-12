@@ -8,13 +8,13 @@ E393_ROOTFSDIR="rootfs-elphel"
 #LINUX ELPHEL
 E393_LINUX_ADDR="https://github.com/Elphel/linux-elphel.git"
 E393_LINUX_ROOT="linux-elphel"
-E393_LINUX_BRANCH="master"
+E393_LINUX_BRANCH="framepars"
 E393_LINUX_HASH="cc50d7fa07140e680b09a8add617e62b4ba35aa0"
 
 #X393
 E393_FPGA1_ADDR="https://github.com/Elphel/x393.git"
 E393_FPGA1_ROOT="x393"
-E393_FPGA1_BRANCH="master"
+E393_FPGA1_BRANCH="framepars"
 E393_FPGA1_HASH="edcdce9550c20726618210149bc1cb4549fd00be"
 
 #X393_SATA
