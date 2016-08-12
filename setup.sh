@@ -56,7 +56,7 @@ EZQHASH="00496002f513fc253f5356ee675fdcbb8b4a9962"
 #META ELPHEL393
 E393ADDR="https://github.com/Elphel/meta-elphel393.git"
 E393ROOT="meta-elphel393"
-E393BRANCH="master"
+E393BRANCH="framepars"
 E393HASH="a93edc1f91e82e5e613fa38bd800e307c348b9ee"
 
 # List of Elphel user space applications. The list is organized as bash array and thus have predefined structure.
@@ -81,7 +81,7 @@ APPS_ARRAY=(
 #udev rules
 "https://github.com/Elphel/elphel-udev-rules.git"
 "elphel-udev-rules"
-"master"
+"framepars"
 ""
 #add new app below
 )
