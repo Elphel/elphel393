@@ -83,6 +83,11 @@ APPS_ARRAY=(
 "elphel-udev-rules"
 "framepars"
 ""
+#web-393
+"https://github.com/Elphel/elphel-web-393.git"
+"elphel-web-393"
+"framepars"
+""
 #add new app below
 )
 
