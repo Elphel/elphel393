@@ -88,6 +88,11 @@ APPS_ARRAY=(
 "elphel-web-393"
 "framepars"
 ""
+#apps-autocampars
+"https://github.com/Elphel/elphel-apps-autocampars.git"
+"elphel-apps-autocampars"
+"framepars"
+""
 #add new app below
 )
 
