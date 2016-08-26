@@ -287,3 +287,7 @@ echo "  \"" >> $BBLAYERS_CONF
 echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
 # Elphel's MIRROR website, \n is important
 echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
+
+
+echo "REMOTE_USER ?= \"root\""  >> $LOCAL_CONF
+echo "REMOTE_IP ?= \"192.168.0.7\""  >> $LOCAL_CONF
