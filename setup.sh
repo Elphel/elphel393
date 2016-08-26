@@ -253,14 +253,16 @@ if [ ! -f build/$LOCAL_CONF ]; then
     MISSING_LOCAL_CONF=1
 else
     echo "build/$LOCAL_CONF exists, updating default version: build/${LOCAL_CONF}_default"
-    mv build/$LOCAL_CONF build/$LOCAL_CONF"_tmp_bkp"
+    cp build/$LOCAL_CONF build/$LOCAL_CONF"_bkp"
+    rm build/$LOCAL_CONF
 fi
 
 if [ ! -f build/$BBLAYERS_CONF ]; then
     MISSING_BBLAYERS_CONF=1
 else
     echo "build/$BBLAYERS_CONF exists, updating default version: build/${BBLAYERS_CONF}_default"
-    mv build/$BBLAYERS_CONF build/$BBLAYERS_CONF"_tmp_bkp"
+    cp build/$BBLAYERS_CONF build/$BBLAYERS_CONF"_bkp"
+    rm build/$BBLAYERS_CONF
 fi
 
 echo ""
@@ -298,15 +300,15 @@ echo "REMOTE_IP ?= \"192.168.0.9\"" >> $LOCAL_CONF
 
 if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
     echo "restoring $BBLAYERS_CONF"
-    mv $BBLAYERS_CONF $BBLAYERS_CONF"_default"
-    mv $BBLAYERS_CONF"_tmp_bkp" $BBLAYERS_CONF
+    cp $BBLAYERS_CONF $BBLAYERS_CONF"_default"
+    cp $BBLAYERS_CONF"_bkp" $BBLAYERS_CONF
     echo "NOTE: If anything breaks after running setup.sh, compare your bblayers.conf and bblayers.conf_default"
 fi
 
 if [ $MISSING_LOCAL_CONF -eq 0 ]; then
     echo "restoring $LOCAL_CONF"
-    mv $LOCAL_CONF $LOCAL_CONF"_default"
-    mv $LOCAL_CONF"_tmp_bkp" $LOCAL_CONF
+    cp $LOCAL_CONF $LOCAL_CONF"_default"
+    cp $LOCAL_CONF"_bkp" $LOCAL_CONF
     echo "NOTE: If anything breaks after running setup.sh, compare your local.conf and local.conf_default"
 fi
 
