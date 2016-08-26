@@ -240,40 +240,55 @@ echo "    core-image-elphel393" >> $CONF_NOTES
 echo "" >> $CONF_NOTES
 
 CURRENT_PATH2=$(dirname $(readlink -f "$0"))
-echo "CHECKPOINT "$CURRENT_PATH2
+#echo "CHECKPOINT "$CURRENT_PATH2
+echo ""
 BBLAYERS_CONF="conf/bblayers.conf"
 LOCAL_CONF="conf/local.conf"
-if [ -f build/$BBLAYERS_CONF ]; then
-    echo "removing build/$BBLAYERS_CONF, a new file will be regenerated"
-    rm build/$BBLAYERS_CONF
-fi 
-if [ -f build/$LOCAL_CONF ]; then
-    echo "removing build/$LOCAL_CONF, a new file will be regenerated"
-    rm build/$LOCAL_CONF
-fi 
-echo ""
+
+MISSING_LOCAL_CONF=0
+MISSING_BBLAYERS_CONF=0
+
+if [ ! -f build/$LOCAL_CONF ]; then
+    MISSING_LOCAL_CONF=1
+else
+    echo "build/$LOCAL_CONF exists"
+fi
+
+if [ ! -f build/$BBLAYERS_CONF ]; then
+    MISSING_BBLAYERS_CONF=1
+else
+    echo "build/$BBLAYERS_CONF exists"
+fi
 
 . ./oe-init-build-env build
 
-echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta-yocto \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta-yocto-bsp \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\" >> $BBLAYERS_CONF
-echo "  \"" >> $BBLAYERS_CONF
+echo ""
+
+if [ $MISSING_BBLAYERS_CONF -eq 1 ]; then
+    echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH2/meta-yocto \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH2/meta-yocto-bsp \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\" >> $BBLAYERS_CONF
+    echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\" >> $BBLAYERS_CONF
+    echo "  \"" >> $BBLAYERS_CONF
+fi
 
 #distro features: systemd
 #echo "DISTRO_FEATURES_append = \" systemd\"" >> $LOCAL_CONF
 #echo "VIRTUAL-RUNTIME_init_manager = \"systemd\"" >> $LOCAL_CONF
 #echo "DISTRO_FEATURES_BACKFILL_CONSIDERED = \"sysvinit\"" >> $LOCAL_CONF
 #echo "VIRTUAL-RUNTIME_initscripts = \"\"" >> $LOCAL_CONF
-# change the MACHINE
-echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
-# Elphel's MIRROR website, \n is important
-echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
+if [ $MISSING_LOCAL_CONF -eq 1 ]; then
+    # change the MACHINE
+    echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
+    # Elphel's MIRROR website, \n is important
+    echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
+    echo "REMOTE_USER ?= \"root\"" >> $LOCAL_CONF
+    echo "REMOTE_IP ?= \"192.168.0.9\"" >> $LOCAL_CONF
+fi
