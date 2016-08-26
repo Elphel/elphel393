@@ -252,44 +252,62 @@ MISSING_BBLAYERS_CONF=0
 if [ ! -f build/$LOCAL_CONF ]; then
     MISSING_LOCAL_CONF=1
 else
-    echo "build/$LOCAL_CONF exists"
+    echo "build/$LOCAL_CONF exists, updating default version: build/${LOCAL_CONF}_default"
+    mv build/$LOCAL_CONF build/$LOCAL_CONF"_tmp_bkp"
 fi
 
 if [ ! -f build/$BBLAYERS_CONF ]; then
     MISSING_BBLAYERS_CONF=1
 else
-    echo "build/$BBLAYERS_CONF exists"
+    echo "build/$BBLAYERS_CONF exists, updating default version: build/${BBLAYERS_CONF}_default"
+    mv build/$BBLAYERS_CONF build/$BBLAYERS_CONF"_tmp_bkp"
 fi
 
+echo ""
+
+echo "Running: . ./oe-init-build-env build. If config files existed they will be backed up and restored"
 . ./oe-init-build-env build
 
 echo ""
 
-if [ $MISSING_BBLAYERS_CONF -eq 1 ]; then
-    echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH2/meta-yocto \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH2/meta-yocto-bsp \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\" >> $BBLAYERS_CONF
-    echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\" >> $BBLAYERS_CONF
-    echo "  \"" >> $BBLAYERS_CONF
-fi
+echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH2/meta-yocto \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH2/meta-yocto-bsp \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\" >> $BBLAYERS_CONF
+echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\" >> $BBLAYERS_CONF
+echo "  \"" >> $BBLAYERS_CONF
 
 #distro features: systemd
 #echo "DISTRO_FEATURES_append = \" systemd\"" >> $LOCAL_CONF
 #echo "VIRTUAL-RUNTIME_init_manager = \"systemd\"" >> $LOCAL_CONF
 #echo "DISTRO_FEATURES_BACKFILL_CONSIDERED = \"sysvinit\"" >> $LOCAL_CONF
 #echo "VIRTUAL-RUNTIME_initscripts = \"\"" >> $LOCAL_CONF
-if [ $MISSING_LOCAL_CONF -eq 1 ]; then
-    # change the MACHINE
-    echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
-    # Elphel's MIRROR website, \n is important
-    echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
-    echo "REMOTE_USER ?= \"root\"" >> $LOCAL_CONF
-    echo "REMOTE_IP ?= \"192.168.0.9\"" >> $LOCAL_CONF
+
+# change the MACHINE
+echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
+# Elphel's MIRROR website, \n is important
+echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
+echo "REMOTE_USER ?= \"root\"" >> $LOCAL_CONF
+echo "REMOTE_IP ?= \"192.168.0.9\"" >> $LOCAL_CONF
+
+if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
+    echo "restoring $BBLAYERS_CONF"
+    mv $BBLAYERS_CONF $BBLAYERS_CONF"_default"
+    mv $BBLAYERS_CONF"_tmp_bkp" $BBLAYERS_CONF
+    echo "NOTE: If anything breaks after running setup.sh, compare your bblayers.conf and bblayers.conf_default"
 fi
+
+if [ $MISSING_LOCAL_CONF -eq 0 ]; then
+    echo "restoring $LOCAL_CONF"
+    mv $LOCAL_CONF $LOCAL_CONF"_default"
+    mv $LOCAL_CONF"_tmp_bkp" $LOCAL_CONF
+    echo "NOTE: If anything breaks after running setup.sh, compare your local.conf and local.conf_default"
+fi
+
+
