@@ -93,6 +93,21 @@ APPS_ARRAY=(
 "elphel-apps-autocampars"
 "framepars"
 ""
+#apps-autoexposure
+"https://github.com/Elphel/elphel-apps-autoexposure.git"
+"elphel-apps-autoexposure"
+"master"
+""
+#apps-histograms
+"https://github.com/Elphel/elphel-apps-histograms.git"
+"elphel-apps-histograms"
+"master"
+""
+#web-camvc
+"https://github.com/Elphel/elphel-web-camvc.git"
+"elphel-web-camvc"
+"master"
+""
 #add new app below
 )
 
