@@ -108,6 +108,11 @@ APPS_ARRAY=(
 "elphel-web-camvc"
 "master"
 ""
+#apps-editconf
+"https://github.com/Elphel/elphel-apps-editconf.git"
+"elphel-apps-editconf"
+"master"
+""
 #add new app below
 )
 
