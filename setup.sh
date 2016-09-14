@@ -9,13 +9,13 @@ E393_ROOTFSDIR="rootfs-elphel"
 E393_LINUX_ADDR="https://github.com/Elphel/linux-elphel.git"
 E393_LINUX_ROOT="linux-elphel"
 E393_LINUX_BRANCH="master-initial"
-E393_LINUX_HASH="cc50d7fa07140e680b09a8add617e62b4ba35aa0"
+E393_LINUX_HASH="c9b13370b8637e7882d57acbf57993b55c1931ef"
 
 #X393
 E393_FPGA1_ADDR="https://github.com/Elphel/x393.git"
 E393_FPGA1_ROOT="x393"
-E393_FPGA1_BRANCH="master"
-E393_FPGA1_HASH="edcdce9550c20726618210149bc1cb4549fd00be"
+E393_FPGA1_BRANCH="master-initial"
+E393_FPGA1_HASH="35cce7c8a7f7b3311a9ce1042a60bbed455b7095"
 
 #X393_SATA
 E393_SATA_FPGA1_ADDR="https://github.com/Elphel/x393_sata.git"
@@ -56,8 +56,8 @@ EZQHASH="00496002f513fc253f5356ee675fdcbb8b4a9962"
 #META ELPHEL393
 E393ADDR="https://github.com/Elphel/meta-elphel393.git"
 E393ROOT="meta-elphel393"
-E393BRANCH="master"
-E393HASH="a93edc1f91e82e5e613fa38bd800e307c348b9ee"
+E393BRANCH="master-initial"
+E393HASH="4564425d9d908e6a9d0d68e3487f7a293061c5f1"
 
 # List of Elphel user space applications. The list is organized as bash array and thus have predefined structure.
 # Each entry in the list consists of four elements: link to repository, application name, branch and commit hash.
@@ -66,22 +66,22 @@ APPS_ARRAY=(
 #imgsrv
 "https://github.com/Elphel/elphel-apps-imgsrv.git"
 "elphel-apps-imgsrv"
-"master"
+"master-initial"
 ""
 #php extension
 "https://github.com/Elphel/elphel-apps-php-extension.git"
 "elphel-apps-php-extension"
-"master"
+"master-initial"
 ""
 #camogm
 "https://github.com/Elphel/elphel-apps-camogm.git"
 "elphel-apps-camogm"
-"master"
+"master-initial"
 ""
 #udev rules
 "https://github.com/Elphel/elphel-udev-rules.git"
 "elphel-udev-rules"
-"master"
+"master-initial"
 ""
 #add new app below
 )
