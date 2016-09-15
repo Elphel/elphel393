@@ -325,6 +325,7 @@ echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
 echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
 
 echo "REMOTE_USER ?= \"root\""  >> $LOCAL_CONF
+echo "IDENTITY_FILE ?= \"~/.ssh/id_rsa\"" >> $LOCAL_CONF
 echo "REMOTE_IP ?= \"192.168.0.9\""  >> $LOCAL_CONF
 
 if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
