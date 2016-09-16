@@ -348,6 +348,3 @@ if [ $MISSING_LOCAL_CONF -eq 0 ]; then
     cp $LOCAL_CONF"_bkp" $LOCAL_CONF
     echo "NOTE: If anything breaks after running setup.sh, compare your local.conf and local.conf_default"
 fi
-
-echo "REMOTE_USER ?= \"root\""  >> $LOCAL_CONF
-echo "REMOTE_IP ?= \"192.168.0.7\""  >> $LOCAL_CONF
