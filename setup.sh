@@ -66,37 +66,31 @@ APPS_ARRAY=(
 #imgsrv
 "https://github.com/Elphel/elphel-apps-imgsrv.git"
 "elphel-apps-imgsrv"
-#"framepars"
 "master"
 ""
 #php extension
 "https://github.com/Elphel/elphel-apps-php-extension.git"
 "elphel-apps-php-extension"
-#"framepars"
 "master"
 ""
 #camogm
 "https://github.com/Elphel/elphel-apps-camogm.git"
 "elphel-apps-camogm"
-#"framepars"
 "master"
 ""
 #udev rules
 "https://github.com/Elphel/elphel-udev-rules.git"
 "elphel-udev-rules"
-#"framepars"
 "master"
 ""
 #web-393
 "https://github.com/Elphel/elphel-web-393.git"
 "elphel-web-393"
-#"framepars"
 "master"
 ""
 #apps-autocampars
 "https://github.com/Elphel/elphel-apps-autocampars.git"
 "elphel-apps-autocampars"
-#"framepars"
 "master"
 ""
 #apps-autoexposure
@@ -117,6 +111,11 @@ APPS_ARRAY=(
 #apps-editconf
 "https://github.com/Elphel/elphel-apps-editconf.git"
 "elphel-apps-editconf"
+"master"
+""
+#init
+"https://github.com/Elphel/elphel-init.git"
+"elphel-init"
 "master"
 ""
 #add new app below
@@ -276,20 +275,36 @@ echo "    core-image-elphel393" >> $CONF_NOTES
 echo "" >> $CONF_NOTES
 
 CURRENT_PATH2=$(dirname $(readlink -f "$0"))
-echo "CHECKPOINT "$CURRENT_PATH2
-BBLAYERS_CONF="conf/bblayers.conf"
-LOCAL_CONF="conf/local.conf"
-if [ -f build/$BBLAYERS_CONF ]; then
-    echo "removing build/$BBLAYERS_CONF, a new file will be regenerated"
-    rm build/$BBLAYERS_CONF
-fi 
-if [ -f build/$LOCAL_CONF ]; then
-    echo "removing build/$LOCAL_CONF, a new file will be regenerated"
-    rm build/$LOCAL_CONF
-fi 
 echo ""
 
+BBLAYERS_CONF="conf/bblayers.conf"
+LOCAL_CONF="conf/local.conf"
+
+MISSING_LOCAL_CONF=0
+MISSING_BBLAYERS_CONF=0
+
+if [ ! -f build/$LOCAL_CONF ]; then
+    MISSING_LOCAL_CONF=1
+else
+    echo "build/$LOCAL_CONF exists, updating default version: build/${LOCAL_CONF}_default"
+    cp build/$LOCAL_CONF build/$LOCAL_CONF"_bkp"
+    rm build/$LOCAL_CONF
+fi
+
+if [ ! -f build/$BBLAYERS_CONF ]; then
+    MISSING_BBLAYERS_CONF=1
+else
+    echo "build/$BBLAYERS_CONF exists, updating default version: build/${BBLAYERS_CONF}_default"
+    cp build/$BBLAYERS_CONF build/$BBLAYERS_CONF"_bkp"
+    rm build/$BBLAYERS_CONF
+fi
+
+echo ""
+
+echo "Running: . ./oe-init-build-env build. If config files existed they will be backed up and restored"
 . ./oe-init-build-env build
+
+echo ""
 
 echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
 echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
@@ -314,6 +329,25 @@ echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
 # Elphel's MIRROR website, \n is important
 echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
 
+echo "REMOTE_USER ?= \"root\""  >> $LOCAL_CONF
+echo "IDENTITY_FILE ?= \"~/.ssh/id_rsa\"" >> $LOCAL_CONF
+echo "REMOTE_IP ?= \"192.168.0.9\""  >> $LOCAL_CONF
+# control init script progress/stage/level
+echo "INITSTRING ?= \"init_elphel393.sh\"" >> $LOCAL_CONF
+
+if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
+    echo "restoring $BBLAYERS_CONF"
+    cp $BBLAYERS_CONF $BBLAYERS_CONF"_default"
+    cp $BBLAYERS_CONF"_bkp" $BBLAYERS_CONF
+    echo "NOTE: If anything breaks after running setup.sh, compare your bblayers.conf and bblayers.conf_default"
+fi
+
+if [ $MISSING_LOCAL_CONF -eq 0 ]; then
+    echo "restoring $LOCAL_CONF"
+    cp $LOCAL_CONF $LOCAL_CONF"_default"
+    cp $LOCAL_CONF"_bkp" $LOCAL_CONF
+    echo "NOTE: If anything breaks after running setup.sh, compare your local.conf and local.conf_default"
+fi
 
 echo "REMOTE_USER ?= \"root\""  >> $LOCAL_CONF
 echo "REMOTE_IP ?= \"192.168.0.7\""  >> $LOCAL_CONF
