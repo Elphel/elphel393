@@ -113,7 +113,7 @@ APPS_ARRAY=(
 "elphel-apps-editconf"
 "master"
 ""
-#apps-editconf
+#init
 "https://github.com/Elphel/elphel-init.git"
 "elphel-init"
 "master"
