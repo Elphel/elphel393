@@ -118,6 +118,11 @@ APPS_ARRAY=(
 "elphel-init"
 "master"
 ""
+#web-hwmon
+"https://github.com/Elphel/elphel-web-hwmon.git"
+"elphel-web-hwmon"
+"master"
+""
 #add new app below
 )
 
