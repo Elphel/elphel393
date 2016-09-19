@@ -338,7 +338,7 @@ echo "REMOTE_USER ?= \"root\""  >> $LOCAL_CONF
 echo "IDENTITY_FILE ?= \"~/.ssh/id_rsa\"" >> $LOCAL_CONF
 echo "REMOTE_IP ?= \"192.168.0.9\""  >> $LOCAL_CONF
 # control init script progress/stage/level
-echo "INITSTRING ?= \"init_elphel393.sh\"" >> $LOCAL_CONF
+echo "INITSTRING ?= \"init_elphel393.py\"" >> $LOCAL_CONF
 
 if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
     echo "restoring $BBLAYERS_CONF"
