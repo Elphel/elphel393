@@ -227,6 +227,7 @@ fi
 cd $E393_ROOTFSDIR
 #Clone user space applications
 for elem in $(seq 0 4 $((${#APPS_ARRAY[@]} - 1))); do
+	echo -e "\n=== ${APPS_ARRAY[$elem+1]} ==="
 	cloneandcheckout "${APPS_ARRAY[$elem]}" "${APPS_ARRAY[$elem+1]}" "${APPS_ARRAY[$elem+2]}" "${APPS_ARRAY[$elem+3]}"
 	copy_eclipse_settings "${APPS_ARRAY[$elem+1]}"
 done
@@ -338,7 +339,7 @@ echo "REMOTE_USER ?= \"root\""  >> $LOCAL_CONF
 echo "IDENTITY_FILE ?= \"~/.ssh/id_rsa\"" >> $LOCAL_CONF
 echo "REMOTE_IP ?= \"192.168.0.9\""  >> $LOCAL_CONF
 # control init script progress/stage/level
-echo "INITSTRING ?= \"init_elphel393.sh\"" >> $LOCAL_CONF
+echo "INITSTRING ?= \"init_elphel393.py\"" >> $LOCAL_CONF
 
 if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
     echo "restoring $BBLAYERS_CONF"
