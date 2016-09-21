@@ -329,16 +329,29 @@ echo "  \"" >> $BBLAYERS_CONF
 #echo "VIRTUAL-RUNTIME_init_manager = \"systemd\"" >> $LOCAL_CONF
 #echo "DISTRO_FEATURES_BACKFILL_CONSIDERED = \"sysvinit\"" >> $LOCAL_CONF
 #echo "VIRTUAL-RUNTIME_initscripts = \"\"" >> $LOCAL_CONF
-# change the MACHINE
-echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
-# Elphel's MIRROR website, \n is important
-echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
 
-echo "REMOTE_USER ?= \"root\""  >> $LOCAL_CONF
-echo "IDENTITY_FILE ?= \"~/.ssh/id_rsa\"" >> $LOCAL_CONF
-echo "REMOTE_IP ?= \"192.168.0.9\""  >> $LOCAL_CONF
-# control init script progress/stage/level
-echo "INITSTRING ?= \"init_elphel393.py\"" >> $LOCAL_CONF
+# 1. Elphel's MIRROR website, \n is important
+# 2. control init script switches
+cat <<EOT >> $LOCAL_CONF
+MACHINE ?= "elphel393"
+MIRRORS =+ "http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \n "
+REMOTE_USER ?= "root"
+IDENTITY_FILE ?= "~/.ssh/id_rsa"
+REMOTE_IP ?= "192.168.0.9"
+INITSTRING ?= "init_elphel393.py \"{\\
+    \\\\"ip\\\\"       :1,\\
+    \\\\"mcntrl\\\\"   :1,\\
+    \\\\"imgsrv\\\\"   :1,\\
+    \\\\"port1\\\\"    :1,\\
+    \\\\"port2\\\\"    :1,\\
+    \\\\"port3\\\\"    :1,\\
+    \\\\"port4\\\\"    :1,\\
+    \\\\"framepars\\\\":1,\\
+    \\\\"autoexp\\\\"  :1,\\
+    \\\\"autowb\\\\"   :1,\\
+    \\\\"sata\\\\"     :1 \\
+}\""
+EOT
 
 if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
     echo "restoring $BBLAYERS_CONF"
