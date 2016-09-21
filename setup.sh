@@ -116,7 +116,7 @@ APPS_ARRAY=(
 #init
 "https://github.com/Elphel/elphel-init.git"
 "elphel-init"
-"master"
+"framepars"
 ""
 #web-hwmon
 "https://github.com/Elphel/elphel-web-hwmon.git"
