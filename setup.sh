@@ -4,6 +4,7 @@
 E393_METADIR="meta"
 E393_FPGADIR="fpga-elphel"
 E393_ROOTFSDIR="rootfs-elphel"
+E393_TOOLSDIR="tools"
 
 #LINUX ELPHEL
 E393_LINUX_ADDR="https://github.com/Elphel/linux-elphel.git"
@@ -126,6 +127,14 @@ APPS_ARRAY=(
 #add new app below
 )
 
+TOOLS_ARRAY=( 
+#tools-update
+"https://github.com/Elphel/elphel-tools-update.git"
+"elphel-tools-update"
+"master"
+""
+#add new tool below
+)
 
 if [ "$1" = "dev" ]; then
 	E393_LINUX_HASH=""
@@ -232,6 +241,19 @@ for elem in $(seq 0 4 $((${#APPS_ARRAY[@]} - 1))); do
 done
 cd ..
 
+if [ ! -d $E393_TOOLSDIR ]; then
+	echo "  Creating $E393_TOOLSDIR"
+	mkdir $E393_TOOLSDIR
+else
+	echo "  $E393_TOOLSDIR exists"
+fi
+cd $E393_TOOLSDIR
+#Clone user space applications
+for elem in $(seq 0 4 $((${#TOOLS_ARRAY[@]} - 1))); do
+	cloneandcheckout "${TOOLS_ARRAY[$elem]}" "${TOOLS_ARRAY[$elem+1]}" "${TOOLS_ARRAY[$elem+2]}" "${TOOLS_ARRAY[$elem+3]}"
+	copy_eclipse_settings "${TOOLS_ARRAY[$elem+1]}"
+done
+cd ..
 
 
 echo "
@@ -311,18 +333,20 @@ echo "Running: . ./oe-init-build-env build. If config files existed they will be
 
 echo ""
 
-echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta-yocto \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta-yocto-bsp \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\" >> $BBLAYERS_CONF
-echo "  \"" >> $BBLAYERS_CONF
+cat <<EOT >> $BBLAYERS_CONF
+BBLAYERS = " \\
+  $CURRENT_PATH2/meta \\
+  $CURRENT_PATH2/meta-yocto \\
+  $CURRENT_PATH2/meta-yocto-bsp \\
+  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\
+  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\
+  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\
+  "
+EOT
 
 #distro features: systemd
 #echo "DISTRO_FEATURES_append = \" systemd\"" >> $LOCAL_CONF
