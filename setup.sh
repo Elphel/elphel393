@@ -351,6 +351,7 @@ INITSTRING ?= "init_elphel393.py \"{\\
     \\\\"autowb\\\\"   :1,\\
     \\\\"sata\\\\"     :1 \\
 }\""
+MACHINE_DEVICETREE = "elphel393.dts"
 EOT
 
 if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
