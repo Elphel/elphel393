@@ -124,6 +124,12 @@ APPS_ARRAY=(
 "elphel-web-hwmon"
 "master"
 ""
+#apps-tempmon
+"https://github.com/Elphel/elphel-apps-tempmon.git"
+"elphel-apps-tempmon"
+"master"
+""
+
 #add new app below
 )
 
