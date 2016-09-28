@@ -4,6 +4,7 @@
 E393_METADIR="meta"
 E393_FPGADIR="fpga-elphel"
 E393_ROOTFSDIR="rootfs-elphel"
+E393_TOOLSDIR="tools"
 
 #LINUX ELPHEL
 E393_LINUX_ADDR="https://github.com/Elphel/linux-elphel.git"
@@ -22,6 +23,12 @@ E393_SATA_FPGA1_ADDR="https://github.com/Elphel/x393_sata.git"
 E393_SATA_FPGA1_ROOT="x393_sata"
 E393_SATA_FPGA1_BRANCH="master"
 E393_SATA_FPGA1_HASH=""
+
+#X359
+E393_X359_FPGA1_ADDR="https://github.com/Elphel/x359.git"
+E393_X359_FPGA1_ROOT="x359"
+E393_X359_FPGA1_BRANCH="master"
+E393_X359_FPGA1_HASH=""
 
 #POKY
 POKYADDR="git://git.yoctoproject.org/poky.git"
@@ -123,9 +130,23 @@ APPS_ARRAY=(
 "elphel-web-hwmon"
 "master"
 ""
+#apps-tempmon
+"https://github.com/Elphel/elphel-apps-tempmon.git"
+"elphel-apps-tempmon"
+"master"
+""
+
 #add new app below
 )
 
+TOOLS_ARRAY=( 
+#tools-update
+"https://github.com/Elphel/elphel-tools-update.git"
+"elphel-tools-update"
+"master"
+""
+#add new tool below
+)
 
 if [ "$1" = "dev" ]; then
 	E393_LINUX_HASH=""
@@ -210,6 +231,8 @@ fi
 
 cloneandcheckout $E393_SATA_FPGA1_ADDR $E393_SATA_FPGA1_ROOT $E393_SATA_FPGA1_BRANCH $E393_SATA_FPGA1_HASH
 
+cloneandcheckout $E393_X359_FPGA1_ADDR $E393_X359_FPGA1_ROOT $E393_X359_FPGA1_BRANCH $E393_X359_FPGA1_HASH
+
 cd ..
 
 
@@ -233,6 +256,19 @@ for elem in $(seq 0 4 $((${#APPS_ARRAY[@]} - 1))); do
 done
 cd ..
 
+if [ ! -d $E393_TOOLSDIR ]; then
+	echo "  Creating $E393_TOOLSDIR"
+	mkdir $E393_TOOLSDIR
+else
+	echo "  $E393_TOOLSDIR exists"
+fi
+cd $E393_TOOLSDIR
+#Clone user space applications
+for elem in $(seq 0 4 $((${#TOOLS_ARRAY[@]} - 1))); do
+	cloneandcheckout "${TOOLS_ARRAY[$elem]}" "${TOOLS_ARRAY[$elem+1]}" "${TOOLS_ARRAY[$elem+2]}" "${TOOLS_ARRAY[$elem+3]}"
+	copy_eclipse_settings "${TOOLS_ARRAY[$elem+1]}"
+done
+cd ..
 
 
 echo "
@@ -312,34 +348,50 @@ echo "Running: . ./oe-init-build-env build. If config files existed they will be
 
 echo ""
 
-echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta-yocto \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta-yocto-bsp \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\" >> $BBLAYERS_CONF
-echo "  \"" >> $BBLAYERS_CONF
+cat <<EOT >> $BBLAYERS_CONF
+BBLAYERS = " \\
+  $CURRENT_PATH2/meta \\
+  $CURRENT_PATH2/meta-yocto \\
+  $CURRENT_PATH2/meta-yocto-bsp \\
+  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\
+  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\
+  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\
+  "
+EOT
 
 #distro features: systemd
 #echo "DISTRO_FEATURES_append = \" systemd\"" >> $LOCAL_CONF
 #echo "VIRTUAL-RUNTIME_init_manager = \"systemd\"" >> $LOCAL_CONF
 #echo "DISTRO_FEATURES_BACKFILL_CONSIDERED = \"sysvinit\"" >> $LOCAL_CONF
 #echo "VIRTUAL-RUNTIME_initscripts = \"\"" >> $LOCAL_CONF
-# change the MACHINE
-echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
-# Elphel's MIRROR website, \n is important
-echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
 
-echo "REMOTE_USER ?= \"root\""  >> $LOCAL_CONF
-echo "IDENTITY_FILE ?= \"~/.ssh/id_rsa\"" >> $LOCAL_CONF
-echo "REMOTE_IP ?= \"192.168.0.9\""  >> $LOCAL_CONF
-# control init script progress/stage/level
-echo "INITSTRING ?= \"init_elphel393.py\"" >> $LOCAL_CONF
+# 1. Elphel's MIRROR website, \n is important
+# 2. control init script switches
+cat <<EOT >> $LOCAL_CONF
+MACHINE ?= "elphel393"
+MIRRORS =+ "http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \n "
+REMOTE_USER ?= "root"
+IDENTITY_FILE ?= "~/.ssh/id_rsa"
+REMOTE_IP ?= "192.168.0.9"
+INITSTRING ?= "init_elphel393.py \"{\\
+    \\\\"ip\\\\"       :1,\\
+    \\\\"mcntrl\\\\"   :1,\\
+    \\\\"imgsrv\\\\"   :1,\\
+    \\\\"port1\\\\"    :1,\\
+    \\\\"port2\\\\"    :1,\\
+    \\\\"port3\\\\"    :1,\\
+    \\\\"port4\\\\"    :1,\\
+    \\\\"framepars\\\\":1,\\
+    \\\\"autoexp\\\\"  :1,\\
+    \\\\"autowb\\\\"   :1,\\
+    \\\\"sata\\\\"     :1 \\
+}\""
+MACHINE_DEVICETREE = "elphel393.dts"
+EOT
 
 if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
     echo "restoring $BBLAYERS_CONF"
