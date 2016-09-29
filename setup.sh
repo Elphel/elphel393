@@ -172,7 +172,7 @@ cloneandcheckout () {
 		else
 			echo "    Already cloned - check out branch then git pull"
 			cd $2
-			git checkout $3
+			git checkout $3 | grep --color -E '^|^M\s(.*)$'
 			git pull
 			cd ..
 		fi
@@ -191,7 +191,7 @@ copy_eclipse_settings () {
 	fi
 }
 
-echo "Step 1: Clone kernel project
+echo -e "\e[1;37mStep 1: Clone kernel project\e[0m
 "
 
 cloneandcheckout $E393_LINUX_ADDR $E393_LINUX_ROOT $E393_LINUX_BRANCH $E393_LINUX_HASH
@@ -205,8 +205,8 @@ fi
 
 
 
-echo "
-Step 2: Clone fpga projects
+echo -e "
+\e[1;37mStep 2: Clone fpga projects\e[0m
 "
 
 if [ ! -d $E393_FPGADIR ]; then
@@ -237,20 +237,20 @@ cd ..
 
 
 
-echo "
-Step 3: Clone applications and libraries projects
+echo -e "
+\e[1;37mStep 3: Clone applications and libraries projects\e[0m
 "
 
 if [ ! -d $E393_ROOTFSDIR ]; then
 	echo "  Creating $E393_ROOTFSDIR"
 	mkdir $E393_ROOTFSDIR
 else
-	echo "  $E393_ROOTFSDIR exists"
+	echo "  $E393_ROOTFSDIR already exists"
 fi
 cd $E393_ROOTFSDIR
 #Clone user space applications
 for elem in $(seq 0 4 $((${#APPS_ARRAY[@]} - 1))); do
-	echo -e "\n=== ${APPS_ARRAY[$elem+1]} ==="
+        echo -e "\e[1;37m*\e[0m ${APPS_ARRAY[$elem+1]}"
 	cloneandcheckout "${APPS_ARRAY[$elem]}" "${APPS_ARRAY[$elem+1]}" "${APPS_ARRAY[$elem+2]}" "${APPS_ARRAY[$elem+3]}"
 	copy_eclipse_settings "${APPS_ARRAY[$elem+1]}"
 done
@@ -271,8 +271,8 @@ done
 cd ..
 
 
-echo "
-Step 4: Extra meta layers
+echo -e "
+\e[1;37mStep 4: Extra meta layers\e[0m
 "
 
 if [ ! -d $E393_METADIR ]; then
@@ -296,8 +296,8 @@ cd ..
 
 
 
-echo "
-Step 5: Poky
+echo -e "
+\e[1;37mStep 5: Poky\e[0m
 "
 
 cloneandcheckout $POKYADDR $POKYROOT $POKYBRANCH $POKYHASH
@@ -390,7 +390,7 @@ INITSTRING ?= "init_elphel393.py \"{\\
     \\\\"autowb\\\\"   :1,\\
     \\\\"sata\\\\"     :1 \\
 }\""
-MACHINE_DEVICETREE = "elphel393.dts"
+MACHINE_DEVICETREE = "elphel393_4_mt9p006.dts"
 EOT
 
 if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then

@@ -5,4 +5,5 @@ linux-elphel
 meta
 poky
 rootfs-elphel
+image
 
