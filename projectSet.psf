@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+<provider id="org.eclipse.egit.core.GitProvider">
+<project reference="1.0,git@github.com:Elphel/elphel-apps-autocampars.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-apps-autoexposure.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-apps-camogm.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-apps-editconf.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-apps-histograms.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-apps-imgsrv.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-apps-php-extension.git,master,."/>
+<project reference="1.0,https://github.com/Elphel/elphel-apps-tempmon.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-init.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-udev-rules.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-web-393.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-web-camvc.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/linux-elphel.git,framepars,."/>
+<project reference="1.0,git@github.com:Elphel/vdt.git,master,parsers"/>
+<project reference="1.0,git@github.com:Elphel/vdt.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/x393.git,framepars,."/>
+</provider>
+</psf>
