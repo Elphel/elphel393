@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+<provider id="org.eclipse.egit.core.GitProvider">
+<project reference="1.0,git@github.com:Elphel/elphel-apps-autoexposure.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-apps-imgsrv.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-apps-php-extension.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-web-393.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/elphel-web-camvc.git,master,."/>
+<project reference="1.0,git@github.com:Elphel/linux-elphel.git,framepars,."/>
+</provider>
+<workingSets editPageId="org.eclipse.ui.resourceWorkingSetPage" id="1473474992984_7" label="apps-autoexposure" name="apps-autoexposure">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/elphel-apps-autoexposure/src" type="2"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.ui.resourceWorkingSetPage" id="1472582814092_4" label="imgsrv" name="imgsrv">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/elphel-apps-imgsrv/Makefile" type="1"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.cdt.ui.CElementWorkingSetPage" id="1469067296987_1" label="linux-elphel" name="linux-elphel">
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/drivers/mmc/host/sdhci.h" type="1"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/drivers/misc/ltc3589.c" type="1"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/drivers/misc/vsc330x.c" type="1"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/include/uapi/elphel" type="2"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/drivers/mtd/nand/nand_base.c" type="1"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/include/linux/i2c/ltc3589.h" type="1"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/drivers/elphel" type="2"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/drivers/ata/ahci_elphel.c" type="1"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/include/elphel" type="2"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/other" type="2"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/drivers/clk/clk-si5338.c" type="1"/>
+<item factoryID="org.eclipse.cdt.ui.PersistableCElementFactory" path="/linux-elphel/linux/source/drivers/mmc/host/sdhci.c" type="1"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/linux-elphel/linux/source/drivers/mtd/nand/Makefile" type="1"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/linux-elphel/linux/source/drivers/Makefile" type="1"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.ui.resourceWorkingSetPage" id="1471042012050_3" label="php" name="php">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/elphel-apps-php-extension/php" type="2"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.ui.resourceWorkingSetPage" id="1473815065511_8" label="web-393" name="web-393">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/elphel-web-393/src/python_tests" type="2"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/elphel-web-393/src/debugfs-webgui" type="2"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/elphel-web-393/src/php_top" type="2"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.ui.resourceWorkingSetPage" id="1473534630062_7" label="web-camvc" name="web-camvc">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/elphel-web-camvc/src" type="2"/>
+</workingSets>
+</psf>
