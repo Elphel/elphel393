@@ -7,25 +7,25 @@ E393_ROOTFSDIR="rootfs-elphel"
 E393_TOOLSDIR="tools"
 
 #LINUX ELPHEL
-E393_LINUX_ADDR="https://github.com/Elphel/linux-elphel.git"
+E393_LINUX_ADDR="git@github.com:Elphel/linux-elphel.git"
 E393_LINUX_ROOT="linux-elphel"
 E393_LINUX_BRANCH="framepars"
 E393_LINUX_HASH="cc50d7fa07140e680b09a8add617e62b4ba35aa0"
 
 #X393
-E393_FPGA1_ADDR="https://github.com/Elphel/x393.git"
+E393_FPGA1_ADDR="git@github.com:Elphel/x393.git"
 E393_FPGA1_ROOT="x393"
 E393_FPGA1_BRANCH="framepars"
 E393_FPGA1_HASH="edcdce9550c20726618210149bc1cb4549fd00be"
 
 #X393_SATA
-E393_SATA_FPGA1_ADDR="https://github.com/Elphel/x393_sata.git"
+E393_SATA_FPGA1_ADDR="git@github.com:Elphel/x393_sata.git"
 E393_SATA_FPGA1_ROOT="x393_sata"
 E393_SATA_FPGA1_BRANCH="master"
 E393_SATA_FPGA1_HASH=""
 
 #X359
-E393_X359_FPGA1_ADDR="https://github.com/Elphel/x359.git"
+E393_X359_FPGA1_ADDR="git@github.com:Elphel/x359.git"
 E393_X359_FPGA1_ROOT="x359"
 E393_X359_FPGA1_BRANCH="master"
 E393_X359_FPGA1_HASH=""
@@ -55,13 +55,13 @@ SWUBRANCH="master"
 SWUHASH="f6ab29cfac2b9c6da8881c754e2a316ea43b884d"
 
 #META EZYNQ
-EZQADDR="https://github.com/Elphel/meta-ezynq.git"
+EZQADDR="git@github.com:Elphel/meta-ezynq.git"
 EZQROOT="meta-ezynq"
 EZQBRANCH="master"
 EZQHASH="00496002f513fc253f5356ee675fdcbb8b4a9962"
 
 #META ELPHEL393
-E393ADDR="https://github.com/Elphel/meta-elphel393.git"
+E393ADDR="git@github.com:Elphel/meta-elphel393.git"
 E393ROOT="meta-elphel393"
 E393BRANCH="master"
 E393HASH="a93edc1f91e82e5e613fa38bd800e307c348b9ee"
@@ -71,67 +71,67 @@ E393HASH="a93edc1f91e82e5e613fa38bd800e307c348b9ee"
 # If either of the fields is not used then leave double quotes in place of this field.
 APPS_ARRAY=(
 #imgsrv
-"https://github.com/Elphel/elphel-apps-imgsrv.git"
+"git@github.com:Elphel/elphel-apps-imgsrv.git"
 "elphel-apps-imgsrv"
 "master"
 ""
 #php extension
-"https://github.com/Elphel/elphel-apps-php-extension.git"
+"git@github.com:Elphel/elphel-apps-php-extension.git"
 "elphel-apps-php-extension"
 "master"
 ""
 #camogm
-"https://github.com/Elphel/elphel-apps-camogm.git"
+"git@github.com:Elphel/elphel-apps-camogm.git"
 "elphel-apps-camogm"
 "master"
 ""
 #udev rules
-"https://github.com/Elphel/elphel-udev-rules.git"
+"git@github.com:Elphel/elphel-udev-rules.git"
 "elphel-udev-rules"
 "master"
 ""
 #web-393
-"https://github.com/Elphel/elphel-web-393.git"
+"git@github.com:Elphel/elphel-web-393.git"
 "elphel-web-393"
 "master"
 ""
 #apps-autocampars
-"https://github.com/Elphel/elphel-apps-autocampars.git"
+"git@github.com:Elphel/elphel-apps-autocampars.git"
 "elphel-apps-autocampars"
 "master"
 ""
 #apps-autoexposure
-"https://github.com/Elphel/elphel-apps-autoexposure.git"
+"git@github.com:Elphel/elphel-apps-autoexposure.git"
 "elphel-apps-autoexposure"
 "master"
 ""
 #apps-histograms
-"https://github.com/Elphel/elphel-apps-histograms.git"
+"git@github.com:Elphel/elphel-apps-histograms.git"
 "elphel-apps-histograms"
 "master"
 ""
 #web-camvc
-"https://github.com/Elphel/elphel-web-camvc.git"
+"git@github.com:Elphel/elphel-web-camvc.git"
 "elphel-web-camvc"
 "master"
 ""
 #apps-editconf
-"https://github.com/Elphel/elphel-apps-editconf.git"
+"git@github.com:Elphel/elphel-apps-editconf.git"
 "elphel-apps-editconf"
 "master"
 ""
 #init
-"https://github.com/Elphel/elphel-init.git"
+"git@github.com:Elphel/elphel-init.git"
 "elphel-init"
 "master"
 ""
 #web-hwmon
-"https://github.com/Elphel/elphel-web-hwmon.git"
+"git@github.com:Elphel/elphel-web-hwmon.git"
 "elphel-web-hwmon"
 "master"
 ""
 #apps-tempmon
-"https://github.com/Elphel/elphel-apps-tempmon.git"
+"git@github.com:Elphel/elphel-apps-tempmon.git"
 "elphel-apps-tempmon"
 "master"
 ""
@@ -141,7 +141,7 @@ APPS_ARRAY=(
 
 TOOLS_ARRAY=( 
 #tools-update
-"https://github.com/Elphel/elphel-tools-update.git"
+"git@github.com:Elphel/elphel-tools-update.git"
 "elphel-tools-update"
 "master"
 ""
