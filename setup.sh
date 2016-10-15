@@ -135,6 +135,11 @@ APPS_ARRAY=(
 "elphel-apps-tempmon"
 "master"
 ""
+#apps-gps
+"git@github.com:Elphel/elphel-apps-gps.git"
+"elphel-apps-gps"
+"master"
+""
 
 #add new app below
 )
