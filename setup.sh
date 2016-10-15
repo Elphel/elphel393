@@ -136,7 +136,7 @@ APPS_ARRAY=(
 "master"
 ""
 #apps-gps
-"git@github.com:Elphel/elphel-apps-gps.git"
+"https://github.com/Elphel/elphel-apps-gps.git"
 "elphel-apps-gps"
 "master"
 ""
