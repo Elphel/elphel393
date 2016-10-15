@@ -4,6 +4,7 @@
 E393_METADIR="meta"
 E393_FPGADIR="fpga-elphel"
 E393_ROOTFSDIR="rootfs-elphel"
+E393_TOOLSDIR="tools"
 
 #LINUX ELPHEL
 E393_LINUX_ADDR="https://github.com/Elphel/linux-elphel.git"
@@ -22,6 +23,12 @@ E393_SATA_FPGA1_ADDR="https://github.com/Elphel/x393_sata.git"
 E393_SATA_FPGA1_ROOT="x393_sata"
 E393_SATA_FPGA1_BRANCH="master"
 E393_SATA_FPGA1_HASH=""
+
+#X359
+E393_X359_FPGA1_ADDR="https://github.com/Elphel/x359.git"
+E393_X359_FPGA1_ROOT="x359"
+E393_X359_FPGA1_BRANCH="master"
+E393_X359_FPGA1_HASH=""
 
 #POKY
 POKYADDR="git://git.yoctoproject.org/poky.git"
@@ -83,9 +90,63 @@ APPS_ARRAY=(
 "elphel-udev-rules"
 "master"
 ""
+#web-393
+"https://github.com/Elphel/elphel-web-393.git"
+"elphel-web-393"
+"master"
+""
+#apps-autocampars
+"https://github.com/Elphel/elphel-apps-autocampars.git"
+"elphel-apps-autocampars"
+"master"
+""
+#apps-autoexposure
+"https://github.com/Elphel/elphel-apps-autoexposure.git"
+"elphel-apps-autoexposure"
+"master"
+""
+#apps-histograms
+"https://github.com/Elphel/elphel-apps-histograms.git"
+"elphel-apps-histograms"
+"master"
+""
+#web-camvc
+"https://github.com/Elphel/elphel-web-camvc.git"
+"elphel-web-camvc"
+"master"
+""
+#apps-editconf
+"https://github.com/Elphel/elphel-apps-editconf.git"
+"elphel-apps-editconf"
+"master"
+""
+#init
+"https://github.com/Elphel/elphel-init.git"
+"elphel-init"
+"master"
+""
+#web-hwmon
+"https://github.com/Elphel/elphel-web-hwmon.git"
+"elphel-web-hwmon"
+"master"
+""
+#apps-tempmon
+"https://github.com/Elphel/elphel-apps-tempmon.git"
+"elphel-apps-tempmon"
+"master"
+""
+
 #add new app below
 )
 
+TOOLS_ARRAY=( 
+#tools-update
+"https://github.com/Elphel/elphel-tools-update.git"
+"elphel-tools-update"
+"master"
+""
+#add new tool below
+)
 
 if [ "$1" = "dev" ]; then
 	E393_LINUX_HASH=""
@@ -111,7 +172,7 @@ cloneandcheckout () {
 		else
 			echo "    Already cloned - check out branch then git pull"
 			cd $2
-			git checkout $3
+			git checkout $3 | grep --color -E '^|^M\s(.*)$'
 			git pull
 			cd ..
 		fi
@@ -130,7 +191,7 @@ copy_eclipse_settings () {
 	fi
 }
 
-echo "Step 1: Clone kernel project
+echo -e "\e[1;37mStep 1: Clone kernel project\e[0m
 "
 
 cloneandcheckout $E393_LINUX_ADDR $E393_LINUX_ROOT $E393_LINUX_BRANCH $E393_LINUX_HASH
@@ -144,8 +205,8 @@ fi
 
 
 
-echo "
-Step 2: Clone fpga projects
+echo -e "
+\e[1;37mStep 2: Clone fpga projects\e[0m
 "
 
 if [ ! -d $E393_FPGADIR ]; then
@@ -170,33 +231,48 @@ fi
 
 cloneandcheckout $E393_SATA_FPGA1_ADDR $E393_SATA_FPGA1_ROOT $E393_SATA_FPGA1_BRANCH $E393_SATA_FPGA1_HASH
 
+cloneandcheckout $E393_X359_FPGA1_ADDR $E393_X359_FPGA1_ROOT $E393_X359_FPGA1_BRANCH $E393_X359_FPGA1_HASH
+
 cd ..
 
 
 
-echo "
-Step 3: Clone applications and libraries projects
+echo -e "
+\e[1;37mStep 3: Clone applications and libraries projects\e[0m
 "
 
 if [ ! -d $E393_ROOTFSDIR ]; then
 	echo "  Creating $E393_ROOTFSDIR"
 	mkdir $E393_ROOTFSDIR
 else
-	echo "  $E393_ROOTFSDIR exists"
+	echo "  $E393_ROOTFSDIR already exists"
 fi
 cd $E393_ROOTFSDIR
 #Clone user space applications
 for elem in $(seq 0 4 $((${#APPS_ARRAY[@]} - 1))); do
-	echo -e "\n=== ${APPS_ARRAY[$elem+1]} ==="
+        echo -e "\e[1;37m*\e[0m ${APPS_ARRAY[$elem+1]}"
 	cloneandcheckout "${APPS_ARRAY[$elem]}" "${APPS_ARRAY[$elem+1]}" "${APPS_ARRAY[$elem+2]}" "${APPS_ARRAY[$elem+3]}"
 	copy_eclipse_settings "${APPS_ARRAY[$elem+1]}"
 done
 cd ..
 
+if [ ! -d $E393_TOOLSDIR ]; then
+	echo "  Creating $E393_TOOLSDIR"
+	mkdir $E393_TOOLSDIR
+else
+	echo "  $E393_TOOLSDIR exists"
+fi
+cd $E393_TOOLSDIR
+#Clone user space applications
+for elem in $(seq 0 4 $((${#TOOLS_ARRAY[@]} - 1))); do
+	cloneandcheckout "${TOOLS_ARRAY[$elem]}" "${TOOLS_ARRAY[$elem+1]}" "${TOOLS_ARRAY[$elem+2]}" "${TOOLS_ARRAY[$elem+3]}"
+	copy_eclipse_settings "${TOOLS_ARRAY[$elem+1]}"
+done
+cd ..
 
 
-echo "
-Step 4: Extra meta layers
+echo -e "
+\e[1;37mStep 4: Extra meta layers\e[0m
 "
 
 if [ ! -d $E393_METADIR ]; then
@@ -220,8 +296,8 @@ cd ..
 
 
 
-echo "
-Step 5: Poky
+echo -e "
+\e[1;37mStep 5: Poky\e[0m
 "
 
 cloneandcheckout $POKYADDR $POKYROOT $POKYBRANCH $POKYHASH
@@ -241,40 +317,93 @@ echo "    core-image-elphel393" >> $CONF_NOTES
 echo "" >> $CONF_NOTES
 
 CURRENT_PATH2=$(dirname $(readlink -f "$0"))
-echo "CHECKPOINT "$CURRENT_PATH2
-BBLAYERS_CONF="conf/bblayers.conf"
-LOCAL_CONF="conf/local.conf"
-if [ -f build/$BBLAYERS_CONF ]; then
-    echo "removing build/$BBLAYERS_CONF, a new file will be regenerated"
-    rm build/$BBLAYERS_CONF
-fi 
-if [ -f build/$LOCAL_CONF ]; then
-    echo "removing build/$LOCAL_CONF, a new file will be regenerated"
-    rm build/$LOCAL_CONF
-fi 
 echo ""
 
+BBLAYERS_CONF="conf/bblayers.conf"
+LOCAL_CONF="conf/local.conf"
+
+MISSING_LOCAL_CONF=0
+MISSING_BBLAYERS_CONF=0
+
+if [ ! -f build/$LOCAL_CONF ]; then
+    MISSING_LOCAL_CONF=1
+else
+    echo "build/$LOCAL_CONF exists, updating default version: build/${LOCAL_CONF}_default"
+    cp build/$LOCAL_CONF build/$LOCAL_CONF"_bkp"
+    rm build/$LOCAL_CONF
+fi
+
+if [ ! -f build/$BBLAYERS_CONF ]; then
+    MISSING_BBLAYERS_CONF=1
+else
+    echo "build/$BBLAYERS_CONF exists, updating default version: build/${BBLAYERS_CONF}_default"
+    cp build/$BBLAYERS_CONF build/$BBLAYERS_CONF"_bkp"
+    rm build/$BBLAYERS_CONF
+fi
+
+echo ""
+
+echo "Running: . ./oe-init-build-env build. If config files existed they will be backed up and restored"
 . ./oe-init-build-env build
 
-echo "BBLAYERS = \" \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta-yocto \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH2/meta-yocto-bsp \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\" >> $BBLAYERS_CONF
-echo "  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\" >> $BBLAYERS_CONF
-echo "  \"" >> $BBLAYERS_CONF
+echo ""
+
+cat <<EOT >> $BBLAYERS_CONF
+BBLAYERS = " \\
+  $CURRENT_PATH2/meta \\
+  $CURRENT_PATH2/meta-yocto \\
+  $CURRENT_PATH2/meta-yocto-bsp \\
+  $CURRENT_PATH1/$E393_METADIR/$EZQROOT \\
+  $CURRENT_PATH1/$E393_METADIR/$E393ROOT \\
+  $CURRENT_PATH1/$E393_METADIR/$XLNXROOT \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-oe \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-python \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-networking \\
+  $CURRENT_PATH1/$E393_METADIR/$MOEROOT/meta-webserver \\
+  "
+EOT
 
 #distro features: systemd
 #echo "DISTRO_FEATURES_append = \" systemd\"" >> $LOCAL_CONF
 #echo "VIRTUAL-RUNTIME_init_manager = \"systemd\"" >> $LOCAL_CONF
 #echo "DISTRO_FEATURES_BACKFILL_CONSIDERED = \"sysvinit\"" >> $LOCAL_CONF
 #echo "VIRTUAL-RUNTIME_initscripts = \"\"" >> $LOCAL_CONF
-# change the MACHINE
-echo "MACHINE ?= \"elphel393\"" >> $LOCAL_CONF
-# Elphel's MIRROR website, \n is important
-echo "MIRRORS =+ \"http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n \"" >> $LOCAL_CONF
+
+# 1. Elphel's MIRROR website, \n is important
+# 2. control init script switches
+cat <<EOT >> $LOCAL_CONF
+MACHINE ?= "elphel393"
+MIRRORS =+ "http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \n "
+REMOTE_USER ?= "root"
+IDENTITY_FILE ?= "~/.ssh/id_rsa"
+REMOTE_IP ?= "192.168.0.9"
+INITSTRING ?= "init_elphel393.py \"{\\
+    \\\\"ip\\\\"       :1,\\
+    \\\\"mcntrl\\\\"   :1,\\
+    \\\\"imgsrv\\\\"   :1,\\
+    \\\\"port1\\\\"    :1,\\
+    \\\\"port2\\\\"    :1,\\
+    \\\\"port3\\\\"    :1,\\
+    \\\\"port4\\\\"    :1,\\
+    \\\\"framepars\\\\":1,\\
+    \\\\"autoexp\\\\"  :1,\\
+    \\\\"autowb\\\\"   :1,\\
+    \\\\"sata\\\\"     :1 \\
+}\""
+MACHINE_DEVICETREE = "elphel393_4_mt9p006.dts"
+EOT
+
+if [ $MISSING_BBLAYERS_CONF -eq 0 ]; then
+    echo "restoring $BBLAYERS_CONF"
+    cp $BBLAYERS_CONF $BBLAYERS_CONF"_default"
+    cp $BBLAYERS_CONF"_bkp" $BBLAYERS_CONF
+    echo "NOTE: If anything breaks after running setup.sh, compare your bblayers.conf and bblayers.conf_default"
+fi
+
+if [ $MISSING_LOCAL_CONF -eq 0 ]; then
+    echo "restoring $LOCAL_CONF"
+    cp $LOCAL_CONF $LOCAL_CONF"_default"
+    cp $LOCAL_CONF"_bkp" $LOCAL_CONF
+    echo "NOTE: If anything breaks after running setup.sh, compare your local.conf and local.conf_default"
+fi
+

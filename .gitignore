@@ -1,0 +1,8 @@
+attic/*
+.directory
+fpga-elphel
+linux-elphel
+meta
+poky
+rootfs-elphel
+tools
