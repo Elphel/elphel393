@@ -135,8 +135,8 @@ APPS_ARRAY=(
 "elphel-apps-tempmon"
 "master"
 ""
-#apps-editconf
-"https://github.com/Elphel/elphel-apps-gps.git"
+#apps-gps
+"git@github.com:Elphel/elphel-apps-gps.git"
 "elphel-apps-gps"
 "master"
 ""
