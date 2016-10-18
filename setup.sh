@@ -258,6 +258,7 @@ for elem in $(seq 0 4 $((${#APPS_ARRAY[@]} - 1))); do
         echo -e "\e[1;37m*\e[0m ${APPS_ARRAY[$elem+1]}"
 	cloneandcheckout "${APPS_ARRAY[$elem]}" "${APPS_ARRAY[$elem+1]}" "${APPS_ARRAY[$elem+2]}" "${APPS_ARRAY[$elem+3]}"
 	copy_eclipse_settings "${APPS_ARRAY[$elem+1]}"
+	
 done
 cd ..
 
