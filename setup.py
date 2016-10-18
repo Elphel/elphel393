@@ -2,9 +2,6 @@
 
 # Clones and sets up and updates everything, also creates local.conf
 
-# Copyright (C) Elphel Inc.
-# GPLv3+
-
 __author__ = "Elphel"
 __copyright__ = "Copyright 2016, Elphel, Inc."
 __license__ = "GPL"
@@ -137,7 +134,7 @@ class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
+    WARNING = '\033[38;5;214m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
@@ -150,7 +147,7 @@ def shout(cmd):
 def cloneandcheckout(name,item):
     print("Clone and checkout: "+name)
     if not os.path.isdir(name):
-        print("    Cloning into "+name+", branch="+item[1]+", hash="+item[2])
+        print(bcolors.WARNING+"    Cloning into "+name+", branch="+item[1]+", hash="+item[2]+bcolors.ENDC)
         shout("git clone -b "+item[1]+" "+item[0]+" "+name)
         cwd = os.getcwd()
         os.chdir(cwd+"/"+name)
@@ -163,7 +160,7 @@ def cloneandcheckout(name,item):
         os.chdir(cwd+"/"+name)
         read_remote = subprocess.check_output("git remote -v",shell=True)
         if read_remote.find(item[0])==-1:
-            print("Changing git remote to "+item[0])
+            print(bcolors.WARNING+"Changing git remote to "+item[0]+bcolors.ENDC)
             shout("git remote set-url origin "+item[0])
         os.chdir(cwd)
         
@@ -182,7 +179,7 @@ def copy_eclipse_settings(name):
     EPS = "eclipse_project_setup"
     if (not os.path.isfile(name+"/.project")) and (os.path.isdir(name+"/"+EPS)):
         print("  Copying up files for Eclipse project")
-        print("  Copying "+name+"/"+EPS+" to "+name+"/")
+        print(bcolors.WARNING+"  Copying "+name+"/"+EPS+" to "+name+"/"+bcolors.ENDC)
         shout("rsync -v -a "+name+"/"+EPS+" "+name+"/")
     else:
         print("Not copying up files for Eclipse project: .project is already there")
