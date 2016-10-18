@@ -21,7 +21,7 @@ Projects = {
     'meta'  : {
         'meta-openembedded':[
             'git://git.openembedded.org/meta-openembedded',
-            'master','73854a05565b30a5ca146ac53959c679b27815aa'
+            'master','73854a05565b30a5ca146ac53959c679b27815aa',
             ],
         'meta-xilinx':[
             'https://github.com/Xilinx/meta-xilinx.git',
@@ -157,6 +157,16 @@ def cloneandcheckout(name,item):
         shout("git checkout "+item[2])
         os.chdir(cwd)
     else:
+        #check for https or git
+        
+        cwd = os.getcwd()
+        os.chdir(cwd+"/"+name)
+        read_remote = subprocess.check_output("git remote -v",shell=True)
+        if read_remote.find(item[0])==-1:
+            print("Changing git remote to "+item[0])
+            shout("git remote set-url origin "+item[0])
+        os.chdir(cwd)
+        
         if item[2]!="":
             print("    Already cloned - checked out at "+item[1]+" "+item[2])
         else:
@@ -189,7 +199,27 @@ def read_local_conf(conf_file,pattern):
                     ret.append(pars)
     return ret
 
-def update_branch(names_from_conf,name_from_list,pars):
+def read_local_conf_dev(conf_file,pattern):
+    ret = "0"
+    if os.path.isfile(conf_file):
+        with open(conf_file,"r") as f:
+            lines = f.readlines()
+            for line in lines:
+                test = line.find(pattern)
+                if test!=-1:
+                    ret = line.split("=")[1].strip().strip("\"")
+    return ret
+
+def update_branch(names_from_conf,name_from_list,pars,git_proto):
+    if (git_proto=="1"):
+        tmp = "https://github.com/Elphel"
+        if pars[0].find(tmp)!=-1:
+            pars[0] = "git@github.com:Elphel"+pars[0][len(tmp):]
+    else:
+        tmp = "git@github.com:Elphel"
+        if pars[0].find(tmp)!=-1:
+            pars[0] = "https://github.com/Elphel"+pars[0][len(tmp):]
+            
     for p in names_from_conf:
         if name_from_list in p:
             pars[1] = p[1]
@@ -197,6 +227,7 @@ def update_branch(names_from_conf,name_from_list,pars):
 
 #main
 project_branches = read_local_conf("poky/build/conf/local.conf","ELPHEL393_branches")
+git_proto = read_local_conf_dev("poky/build/conf/local.conf","ELPHEL393_DEV")
 i=0
 for p,v in Projects.items():
     i = i + 1
@@ -214,9 +245,8 @@ for p,v in Projects.items():
         os.chdir(cwd+"/"+p)
         
         for k,l in v.items():
-            print(bcolors.BOLDWHITE+"*"+bcolors.ENDC+" "+k)
-            
-            cloneandcheckout(k,update_branch(project_branches,k,l))
+            print("\n"+bcolors.BOLDWHITE+"*"+bcolors.ENDC+" "+k)
+            cloneandcheckout(k,update_branch(project_branches,k,l,git_proto))
             copy_eclipse_settings(k)
             
             #special case for x393 fpga project
@@ -233,7 +263,7 @@ for p,v in Projects.items():
         os.chdir(cwd)
     
     elif isinstance(v,list):
-        cloneandcheckout(p,update_branch(project_branches,p,v))
+        cloneandcheckout(p,update_branch(project_branches,p,v,git_proto))
         copy_eclipse_settings(p)
         
     else:
@@ -309,6 +339,13 @@ MIRRORS =+ "http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n "
 # Example:
 # ELPHEL393_branches += "elphel-apps-camogm:framepars"
 # ELPHEL393_branches += "linux-elphel:framepars"
+
+# By default the projects' remotes are set to https.
+# To switch to git:// (commit changes to github w/o a password)
+# uncomment the following line
+# 1 - for git://   - access using a key
+# 0 (or commented) - for https:// - access using a password
+# ELPHEL393_DEV = "1"
 
 REMOTE_USER ?= "root"
 IDENTITY_FILE ?= "~/.ssh/id_rsa"
