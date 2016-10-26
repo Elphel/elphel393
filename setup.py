@@ -350,6 +350,7 @@ IDENTITY_FILE ?= "~/.ssh/id_rsa"
 REMOTE_IP ?= "192.168.0.9"
 
 INITSTRING ?= "init_elphel393.py \\"{\\
+    \\\\"usb_hub\\\\"  :1,\\
     \\\\"ip\\\\"       :1,\\
     \\\\"mcntrl\\\\"   :1,\\
     \\\\"imgsrv\\\\"   :1,\\
@@ -360,7 +361,8 @@ INITSTRING ?= "init_elphel393.py \\"{\\
     \\\\"framepars\\\\":1,\\
     \\\\"autoexp\\\\"  :1,\\
     \\\\"autowb\\\\"   :1,\\
-    \\\\"sata\\\\"     :1 \\
+    \\\\"sata\\\\"     :1,\\
+    \\\\"gps\\\\"      :1 \\
 }\\""
 MACHINE_DEVICETREE = "elphel393_4_mt9p006.dts"
 """)
