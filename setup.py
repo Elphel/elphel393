@@ -362,7 +362,8 @@ INITSTRING ?= "init_elphel393.py \\"{\\
     \\\\"autoexp\\\\"  :1,\\
     \\\\"autowb\\\\"   :1,\\
     \\\\"sata\\\\"     :1,\\
-    \\\\"gps\\\\"      :1 \\
+    \\\\"gps\\\\"      :1,\\
+    \\\\"eyesis\\\\"   :0 \\
 }\\""
 MACHINE_DEVICETREE = "elphel393_4_mt9p006.dts"
 """)
