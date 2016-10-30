@@ -247,16 +247,15 @@ for p,v in Projects.items():
             copy_eclipse_settings(k)
             
             #special case for x393 fpga project
-            if p=="x393":
+            if k=="x393":
                 if os.path.isfile(k+"/py393/generate_c.sh"):
                     subcwd = os.getcwd()
                     os.chdir(subcwd+"/"+k+"/py393")
                     shout("./generate_c.sh")
                     os.chdir(subcwd)
-                if os.path.isdir(k+"/generated"):
+                if os.path.isdir(k+"/py393/generated"):
                     if os.path.isdir(cwd+"/linux-elphel/src/drivers/elphel"):
-                        shout("rsync -a "+k+"/generated "+cwd+"/linux-elphel/src/drivers/elphel")
-
+                        shout("rsync -a "+k+"/py393/generated/ "+cwd+"/linux-elphel/src/drivers/elphel")
         os.chdir(cwd)
     
     elif isinstance(v,list):
