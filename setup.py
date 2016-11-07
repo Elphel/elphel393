@@ -358,6 +358,7 @@ INITSTRING ?= "init_elphel393.py \\"{\\
     \\\\"port3\\\\"    :1,\\
     \\\\"port4\\\\"    :1,\\
     \\\\"framepars\\\\":1,\\
+    \\\\"autoexp_daemon\\\\"  :1,\\
     \\\\"autoexp\\\\"  :1,\\
     \\\\"autowb\\\\"   :1,\\
     \\\\"sata\\\\"     :1,\\
