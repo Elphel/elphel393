@@ -345,6 +345,7 @@ MIRRORS =+ "http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n "
 
 REMOTE_USER ?= "root"
 IDENTITY_FILE ?= "~/.ssh/id_rsa"
+COPY_TO_NAND = "0"
 
 REMOTE_IP ?= "192.168.0.9"
 
