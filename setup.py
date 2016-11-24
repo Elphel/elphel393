@@ -167,6 +167,9 @@ for p,v in Projects.items():
         print("Error?")
 
 
+# force create link to images
+shout("ln -sf poky/build/tmp/deploy/images/elphel393/ bootable-images")
+
 # do the local.conf
 path = os.getcwd()
 os.chdir(path+"/poky")
