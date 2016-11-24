@@ -107,8 +107,8 @@ def deep_analysis(local,remote):
           recstr = bcolors.OKGREEN+recstr+bcolors.ENDC
         else:
           recstr = bcolors.FAIL+recstr+bcolors.ENDC
-      if not prfound:
-        recstr = bcolors.WARNING+recstr+bcolors.ENDC
+    if not prfound:
+      recstr = bcolors.WARNING+recstr+bcolors.ENDC
           
     print(recstr)
   print("")
