@@ -113,6 +113,15 @@ def update_branch(names_from_conf,name_from_list,pars,git_proto):
     return pars
 
 #main
+
+#self pull?
+print(bcolors.BOLDWHITE+"Running self git pull"+bcolors.ENDC)
+selfpullresult = subprocess.check_output("git pull",shell=True)
+
+if selfpullresult.strip()!="Already up-to-date.":
+  print(bcolors.WARNING+"Wasn't up-to-date. Please, rerun ./setup.py"+bcolors.ENDC)
+  sys.exit()
+
 project_branches = read_local_conf("poky/build/conf/local.conf","ELPHEL393_branches")
 git_proto = read_local_conf_dev("poky/build/conf/local.conf","ELPHEL393_DEV")
 i=0
