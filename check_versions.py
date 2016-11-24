@@ -128,6 +128,7 @@ local_project_list = "projects.json"
 local_dirs = ["rootfs-elphel","fpga-elphel","linux-elphel"]
 git_vfile = "VERSION"
 project_prefix = "elphel-"
+package_prefix = "fpga-"
 
 if len(sys.argv)>1:
   rootip = sys.argv[1].split("@")
@@ -167,6 +168,10 @@ for p,v in Projects.items():
           name = k[len(project_prefix):]
         else:
           name = k
+          
+        if p.find(package_prefix):
+          name = package_prefix+name
+          
         local_list.append([name.encode('ascii','ignore'),tmp])
     elif isinstance(v,list):
       tmp = get_version_from_git(p,git_vfile)
