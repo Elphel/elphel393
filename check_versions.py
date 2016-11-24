@@ -172,6 +172,10 @@ for p,v in Projects.items():
         if p.find(package_prefix)==0:
           name = package_prefix+name
           
+        #only exception
+        if name=="fpga-x393_sata":
+          name="fpga-x393sata"
+          
         local_list.append([name.encode('ascii','ignore'),tmp])
     elif isinstance(v,list):
       tmp = get_version_from_git(p,git_vfile)
