@@ -169,7 +169,7 @@ for p,v in Projects.items():
         else:
           name = k
           
-        if p.find(package_prefix):
+        if p.find(package_prefix)==0:
           name = package_prefix+name
           
         local_list.append([name.encode('ascii','ignore'),tmp])
