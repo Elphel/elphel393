@@ -109,14 +109,14 @@ def deep_analysis(local,remote):
         else:
           recstr = bcolors.FAIL+recstr+bcolors.ENDC
           pl = getname(pl,"","recipe_to_package")
-          update_list = update_list + " " + pl
+          update_list = update_list+" bitbake "+pl+" -c target_scp -f\n"
     if not prfound:
       recstr = bcolors.WARNING+recstr+bcolors.ENDC
       pl = getname(pl,"","recipe_to_package")
-      update_list = update_list + " " + pl
+      update_list = update_list+" bitbake "+pl+" -c target_scp -f\n"
 
     print(recstr)
-  print("\nTo sync the software on the target run:\n    bitbake"+update_list+" -c target_scp -f")
+  print("\nTo sync the software on the target run:\n"+update_list)
 
 # all exceptions in one place
 def getname(name,project,mode):
@@ -126,11 +126,12 @@ def getname(name,project,mode):
   if mode=="project_to_recipe":
     if name.find(project_prefix)==0:
       name = name[len(project_prefix):]
-      if project.find(package_prefix)==0:
-        name = package_prefix+name
+
+    if project.find(package_prefix)==0:
+      name = package_prefix+name
       #only exception
-      if name=="fpga-x393_sata":
-        name="fpga-x393sata"
+    if name=="fpga-x393_sata":
+      name="fpga-x393sata"
     return name
   
   elif mode=="recipe_to_package":
