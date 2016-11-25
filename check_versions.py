@@ -96,6 +96,7 @@ def deep_analysis(local,remote):
   
   print("\n"+bcolors.BOLDWHITE+"{:<24}".format("Project")+"{:<16}".format("Local GIT")+"{:<16}".format("Target Version")+bcolors.ENDC)
   
+  update_list = ""
   for pl,vl in local:
     recstr = "{:<24}".format(pl)+"{:<16}".format(vl)
     prfound = False
@@ -107,11 +108,39 @@ def deep_analysis(local,remote):
           recstr = bcolors.OKGREEN+recstr+bcolors.ENDC
         else:
           recstr = bcolors.FAIL+recstr+bcolors.ENDC
+          pl = getname(pl,"","recipe_to_package")
+          update_list = update_list + " " + pl
     if not prfound:
       recstr = bcolors.WARNING+recstr+bcolors.ENDC
-          
+      pl = getname(pl,"","recipe_to_package")
+      update_list = update_list + " " + pl
+
     print(recstr)
-  print("")
+  print("\nTo sync the software on the target run:\n    bitbake"+update_list+" -c target_scp -f")
+
+# all exceptions in one place
+def getname(name,project,mode):
+  global project_prefix
+  global package_prefix
+    
+  if mode=="project_to_recipe":
+    if name.find(project_prefix)==0:
+      name = name[len(project_prefix):]
+      if project.find(package_prefix)==0:
+        name = package_prefix+name
+      #only exception
+      if name=="fpga-x393_sata":
+        name="fpga-x393sata"
+    return name
+  
+  elif mode=="recipe_to_package":
+    if name=="linux-elphel":
+      name = "linux-xlnx"
+    elif name=="apps-php-extension":
+      name = "php"
+    return name
+  else:
+    return name
 
 usage = """Usage example:
     {0}{1} root@192.168.0.9{2}, where
@@ -164,19 +193,9 @@ for p,v in Projects.items():
     if isinstance(v,dict):
       for k,l in v.items():
         tmp = get_version_from_git(p+"/"+k,git_vfile)
-        if k.find(project_prefix)==0:
-          name = k[len(project_prefix):]
-        else:
-          name = k
-          
-        if p.find(package_prefix)==0:
-          name = package_prefix+name
-          
-        #only exception
-        if name=="fpga-x393_sata":
-          name="fpga-x393sata"
-          
+        name = getname(k,p,"project_to_recipe")
         local_list.append([name.encode('ascii','ignore'),tmp])
+        
     elif isinstance(v,list):
       tmp = get_version_from_git(p,git_vfile)
       local_list.append([p.encode('ascii','ignore'),tmp])
