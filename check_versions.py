@@ -62,6 +62,25 @@ def get_versions_from_target(addr,tdir):
   
   return remote_list
 
+def get_versions_from_target_quick(addr,tdir):
+  # print remote package list
+  ldir = os.path.basename(tdir)
+  if os.path.isdir(ldir):
+    shout("rm -rf "+ldir)
+    
+  shout("scp -r "+addr+":"+tdir+" .")
+  
+  remote_list = []
+  
+  for f in os.listdir(ldir):
+    with open(ldir+"/"+f, 'r') as content_file:
+      content = content_file.read()
+    remote_list.append([f,content.strip()])
+  
+  shout("rm -rf "+ldir)
+  
+  return remote_list
+
 def get_version_from_git(path,vfile):
   print(path)
   cwd = os.getcwd()
@@ -179,7 +198,7 @@ else:
 print("Software/firmware versions check for target "+bcolors.BOLDWHITE+user+"@"+ip+bcolors.ENDC)
 
 print(bcolors.BOLDWHITE+"=== Read versions from the target ==="+bcolors.ENDC)
-target_list = get_versions_from_target(user+"@"+ip,target_dir)
+target_list = get_versions_from_target_quick(user+"@"+ip,target_dir)
 
 print(target_list)
 
