@@ -189,7 +189,8 @@ else:
   if (os.path.isfile(local_conf)):
     user   = read_local_conf(local_conf,"REMOTE_USER")
     ip = read_local_conf(local_conf,"REMOTE_IP")
-    print("NOTE: user and ip are taken from "+local_conf)
+    print(bcolors.WARNING+"NOTE: The default user and ip are taken from "+local_conf+bcolors.ENDC)
+    print(bcolors.WARNING+"NOTE: To check against the latest code run ./setup.py first"+bcolors.ENDC)
     print(usage)
   
   if user=="" or ip=="":
