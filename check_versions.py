@@ -82,7 +82,7 @@ def get_versions_from_target_quick(addr,tdir):
   return remote_list
 
 def get_version_from_git(path,vfile):
-  print(path)
+  #print(path)
   cwd = os.getcwd()
   os.chdir(cwd+"/"+path)
   
@@ -135,7 +135,8 @@ def deep_analysis(local,remote):
       update_list = update_list+" bitbake "+pl+" -c target_scp -f\n"
 
     print(recstr)
-  print("\nTo sync the software on the target run:\n"+update_list)
+  if not update_list=="":
+    print("\nTo sync the software on the target run:\n"+update_list)
 
 # all exceptions in one place
 def getname(name,project,mode):
@@ -201,7 +202,7 @@ print("Software/firmware versions check for target "+bcolors.BOLDWHITE+user+"@"+
 print(bcolors.BOLDWHITE+"=== Read versions from the target ==="+bcolors.ENDC)
 target_list = get_versions_from_target_quick(user+"@"+ip,target_dir)
 
-print(target_list)
+#print(target_list)
 
 print(bcolors.BOLDWHITE+"=== Read local versions ==="+bcolors.ENDC)
 with open(local_project_list) as data_file:
@@ -223,7 +224,7 @@ for p,v in Projects.items():
     else:
       raise Exception("Unknown error")
 
-print(local_list)
+#print(local_list)
 
 deep_analysis(local_list,target_list)
 
