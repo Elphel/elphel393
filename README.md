@@ -11,13 +11,9 @@ it clones and configures several individual repositories, such as
 The same script pulls updates from these repositories
 
 ### Get environment
-#### Stable
+#### Checkout
 ```sh
-$ ./setup.sh
-```
-#### Latest
-```sh
-$ ./setup.sh dev
+$ ./setup.py
 ```
 
 ### Build targets
