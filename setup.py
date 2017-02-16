@@ -80,10 +80,11 @@ def read_local_conf(conf_file,pattern):
         with open(conf_file,"r") as f:
             lines = f.readlines()
             for line in lines:
-                test = line.find(pattern)
-                if test!=-1:
-                    pars = line.split("=")[1].strip().strip("\"").split(":")
-                    ret.append(pars)
+                if line[0]!="#":
+                  test = line.find(pattern)
+                  if test!=-1:
+                      pars = line.split("=")[1].strip().strip("\"").split(":")
+                      ret.append(pars)
     return ret
 
 def read_local_conf_dev(conf_file,pattern):
@@ -92,6 +93,7 @@ def read_local_conf_dev(conf_file,pattern):
         with open(conf_file,"r") as f:
             lines = f.readlines()
             for line in lines:
+              if line[0]!="#":
                 test = line.find(pattern)
                 if test!=-1:
                     ret = line.split("=")[1].strip().strip("\"")
