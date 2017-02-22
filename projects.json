@@ -27,6 +27,11 @@
         "git://git.yoctoproject.org/poky.git",
         "master","3d2c0f5902cacf9d8544bf263b51ef0dd1a7218c"
     ],
+    "linux-elphel" :[
+        "https://github.com/Elphel/linux-elphel.git",
+        "master","",
+        "#master","cc50d7fa07140e680b09a8add617e62b4ba35aa0"
+    ],
     "fpga-elphel"  : {
         "x393"     :[
             "https://github.com/Elphel/x393.git",
@@ -42,11 +47,6 @@
             "master",""
         ]
     },
-    "linux-elphel" :[
-        "https://github.com/Elphel/linux-elphel.git",
-        "master","",
-        "#master","cc50d7fa07140e680b09a8add617e62b4ba35aa0"
-    ],
     "rootfs-elphel": {
         "elphel-apps-imgsrv":[
             "https://github.com/Elphel/elphel-apps-imgsrv.git",

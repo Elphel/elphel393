@@ -15,10 +15,11 @@ import os
 import sys
 
 import json
+from collections import OrderedDict
 
 with open('projects.json') as data_file:
-    Projects = json.load(data_file)
-        
+    Projects = json.load(data_file, object_pairs_hook=OrderedDict)
+
 #http://stackoverflow.com/questions/287871/print-in-terminal-with-colors-using-python
 class bcolors:
     HEADER = '\033[95m'
@@ -70,9 +71,13 @@ def copy_eclipse_settings(name):
     if (not os.path.isfile(name+"/.project")) and (os.path.isdir(name+"/"+EPS)):
         print("  Copying up files for Eclipse project")
         print(bcolors.WARNING+"  Copying "+name+"/"+EPS+" to "+name+"/"+bcolors.ENDC)
-        shout("rsync -v -a "+name+"/"+EPS+" "+name+"/")
-    else:
-        print("Not copying up files for Eclipse project: .project is already there")
+        shout("rsync -av "+name+"/"+EPS+"/ "+name+"/")
+    
+    if not os.path.isdir(name+"/"+EPS):
+      print("Not copying up files for Eclipse project: not an Eclipse project")
+    elif os.path.isfile(name+"/.project"):
+      print("Not copying up files for Eclipse project: .project is already there")
+    
 
 def read_local_conf(conf_file,pattern):
     ret = []
