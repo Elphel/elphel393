@@ -13,9 +13,19 @@ __status__ = "Development"
 import subprocess
 import os
 import sys
+import shutil
 
 import json
 from collections import OrderedDict
+
+projects_file = "projects.json"
+projects_default_file = "projects-default.json"
+
+if not os.path.isfile(projects_file):
+  if os.path.isfile(projects_default_file):
+    shutil.copy(projects_default_file,projects_file)
+
+sys.exit()
 
 with open('projects.json') as data_file:
     Projects = json.load(data_file, object_pairs_hook=OrderedDict)
