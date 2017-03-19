@@ -25,8 +25,6 @@ if not os.path.isfile(projects_file):
   if os.path.isfile(projects_default_file):
     shutil.copy(projects_default_file,projects_file)
 
-sys.exit()
-
 with open('projects.json') as data_file:
     Projects = json.load(data_file, object_pairs_hook=OrderedDict)
 
