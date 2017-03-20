@@ -14,6 +14,7 @@ import subprocess
 import os
 import sys
 import shutil
+import re
 
 import json
 from collections import OrderedDict
@@ -117,19 +118,29 @@ def read_local_conf_dev(conf_file,pattern):
     return ret
 
 def update_branch(names_from_conf,name_from_list,pars,git_proto):
-    if (git_proto=="1"):
-        tmp = "https://git.elphel.com/Elphel"
-        if pars[0].find(tmp)!=-1:
-            pars[0] = "git@git.elphel.com:Elphel"+pars[0][len(tmp):]
-    else:
-        tmp = "git@git.elphel.com:Elphel"
-        if pars[0].find(tmp)!=-1:
-            pars[0] = "https://git.elphel.com/Elphel"+pars[0][len(tmp):]
-            
-    for p in names_from_conf:
-        if name_from_list in p:
-            pars[1] = p[1]
+
+    # GIT host is defined in projects.json, 
+    # https or git is defined in local.conf
+    # get host
+    s0 = re.search("^(https:\/\/|git@)(.+)(\/|:)Elphel.*",pars[0])
+    if s0:
+      host = s0.group(2)
+      print("git host: "+host)
+      if (git_proto=="1"):
+          tmp = "https://"+host+"/Elphel"
+          if pars[0].find(tmp)!=-1:
+              pars[0] = "git@"+host+":Elphel"+pars[0][len(tmp):]
+      else:
+          tmp = "git@"+host+":Elphel"
+          if pars[0].find(tmp)!=-1:
+              pars[0] = "https://"+host+"/Elphel"+pars[0][len(tmp):]
+              
+      for p in names_from_conf:
+          if name_from_list in p:
+              pars[1] = p[1]
     return pars
+
+
 
 #main
 
@@ -265,6 +276,11 @@ MIRRORS =+ "http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n "
 # 1 - for git://   - access using a key
 # 0 (or commented) - for https:// - access using a password
 # ELPHEL393_DEV = "1"
+
+# To change git host edit: projects.json (a copy of projects-default.json)
+# New git host must match "^(https:\/\/|git@)(.+)(\/|:)Elphel.*", e.g.: 
+# "https://something.com/Elphel/someproject" or
+#     "git@something.com:Elphel/someproject"
 
 REMOTE_USER ?= "root"
 IDENTITY_FILE ?= "~/.ssh/id_rsa"
