@@ -118,13 +118,13 @@ def read_local_conf_dev(conf_file,pattern):
 
 def update_branch(names_from_conf,name_from_list,pars,git_proto):
     if (git_proto=="1"):
-        tmp = "https://github.com/Elphel"
+        tmp = "https://git.elphel.com/Elphel"
         if pars[0].find(tmp)!=-1:
-            pars[0] = "git@github.com:Elphel"+pars[0][len(tmp):]
+            pars[0] = "git@git.elphel.com:Elphel"+pars[0][len(tmp):]
     else:
-        tmp = "git@github.com:Elphel"
+        tmp = "git@git.elphel.com:Elphel"
         if pars[0].find(tmp)!=-1:
-            pars[0] = "https://github.com/Elphel"+pars[0][len(tmp):]
+            pars[0] = "https://git.elphel.com/Elphel"+pars[0][len(tmp):]
             
     for p in names_from_conf:
         if name_from_list in p:
