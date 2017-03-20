@@ -289,10 +289,10 @@ if missing_bblayers_conf==0:
     print("restoring "+bblayers_conf)
     shout("cp "+bblayers_conf+" "+bblayers_conf+"_default")
     shout("cp "+bblayers_conf+"_bkp "+bblayers_conf)
-    print("NOTE: If anything breaks after running setup.sh, compare your bblayers.conf and bblayers.conf_default")
+    print("NOTE: If anything breaks after running setup.py, compare your bblayers.conf and bblayers.conf_default")
     
 if missing_local_conf==0:
     print("restoring "+local_conf)
     shout("cp "+local_conf+" "+local_conf+"_default")
     shout("cp "+local_conf+"_bkp "+local_conf)
-    print("NOTE: If anything breaks after running setup.sh, compare your local.conf and local.conf_default")
+    print("NOTE: If anything breaks after running setup.py, compare your local.conf and local.conf_default")
