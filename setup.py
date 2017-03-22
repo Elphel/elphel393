@@ -263,6 +263,13 @@ with open(local_conf,"a") as f:
 MACHINE ?= "elphel393"
 MIRRORS =+ "http://.*/.*     http://mirror.elphel.com/elphel393_mirror/ \\n "
 
+# Elphel's default git server.
+# Affected recipes: 
+# * u-boot-ezynq.inc, 
+# * elphel-python-extensions_*.bb
+# * linux-xlnx_4.0.bbappend
+ELPHELGITHOST = "git.elphel.com"
+
 # To change a project's branch from the setup.py list to something other than 'master'
 # add the following line (a separate line for each project):
 # ELPHEL393_branches += "projectname:branchname"
