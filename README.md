@@ -11,7 +11,13 @@ it clones and configures several individual repositories, such as
 The same script pulls updates from these repositories
 
 ### Get environment
-#### Checkout
+#### Dependencies
+* poky might require installing some packages, please check with the [Yocto Poky Manual][1] 
+* extra requirement
+```sh
+$ sudo apt install python-numpy 
+```
+#### Get sources
 ```sh
 $ ./setup.py
 ```
@@ -22,9 +28,9 @@ $ cd poky
 $ . ./oe-init-build-env
 $ bitbake u-boot device-tree linux-xlnx core-image-elphel393
 ```
-* poky might require installing some packages, please check with the [Yocto Poky Manual][1] 
+
 * the results are in *poky/build/tmp/deploy/images/elphel393/*
-* for more info, read [here][2]
+* for more details, read [**this guide**][2] at [https://wiki.elphel.com][2]
 
 [1]: http://www.yoctoproject.org/docs/2.0/mega-manual/mega-manual.html
 [2]: http://wiki.elphel.com/index.php?title=Poky_2.0_manual
