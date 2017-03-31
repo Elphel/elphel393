@@ -14,9 +14,11 @@ The same script pulls updates from these repositories
 #### Dependencies
 * poky might require installing some packages, please check with the [Yocto Poky Manual][1] 
 * extra requirement
+
 ```sh
 $ sudo apt install python-numpy 
 ```
+
 #### Get sources
 ```sh
 $ ./setup.py
