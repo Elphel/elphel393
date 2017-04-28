@@ -1,12 +1,12 @@
 # elphel393
 Installation script for fetching and setting up building environment for elphel393 camera images,
 it clones and configures several individual repositories, such as
-* https://github.com/Elphel/linux-elphel
-* https://github.com/Elphel/x393
+* https://git.elphel.com/Elphel/linux-elphel
+* https://git.elphel.com/Elphel/x393
 * http://git.yoctoproject.org
 * http://git.openembedded.org
 * https://github.com/Xilinx/meta-xilinx
-* https://github.com/Elphel/meta-elphel393
+* https://git.elphel.com/Elphel/meta-elphel393
  
 The same script pulls updates from these repositories
 
@@ -36,3 +36,16 @@ $ bitbake u-boot device-tree linux-xlnx core-image-elphel393
 
 [1]: http://www.yoctoproject.org/docs/2.0/mega-manual/mega-manual.html
 [2]: http://wiki.elphel.com/index.php?title=Poky_2.0_manual
+
+### Update and refresh environment
+```sh
+$ ./setup.py
+```
+### Rebuild targets
+```sh
+$ cd poky
+$ . ./oe-init-build-env
+$ bitbake linux-xlnx -c link -f
+$ bitbake core-image-elphel393
+```
+
