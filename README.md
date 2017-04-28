@@ -45,7 +45,7 @@ $ ./setup.py
 ```sh
 $ cd poky
 $ . ./oe-init-build-env
-$ bitbake linux-xlnx -c link -f
-$ bitbake core-image-elphel393
+$ (if changes in the kernel) bitbake linux-xlnx -c link -f
+$ (if changes in the rootfs and the kernel) bitbake core-image-elphel393
 ```
 
