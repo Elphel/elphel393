@@ -103,7 +103,11 @@
         "elphel-apps-gps":[
             "https://git.elphel.com/Elphel/elphel-apps-gps.git",
             "master",""
-        ]
+        ],
+        "elphel-apps-astreamer":[
+            "https://git.elphel.com/Elphel/elphel-apps-astreamer.git",
+            "master",""
+        ]        
     },
     "tools" : {
         "elphel-tools-update":[
