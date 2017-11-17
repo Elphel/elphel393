@@ -302,13 +302,6 @@ ELPHELGITHOST = "git.elphel.com"
 # ELPHEL393_branches += "elphel-apps-camogm:framepars"
 # ELPHEL393_branches += "linux-elphel:framepars"
 
-# By default the projects' remotes are set to https.
-# To switch to git:// (commit changes to github w/o a password)
-# uncomment the following line
-# 1 - for git://   - access using a key
-# 0 (or commented) - for https:// - access using a password
-# ELPHEL393_DEV = "1"
-
 # To change git host edit: projects.json (a copy of projects-default.json)
 # New git host must match "^(https:\/\/|git@)(.+)(\/|:)Elphel.*", e.g.:
 # "https://something.com/Elphel/someproject" or
