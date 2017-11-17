@@ -10,19 +10,6 @@ it clones and configures several individual repositories, such as
 
 The same script pulls updates from these repositories
 
-### Cloning
-
-To have access to related Elphel's projects over **SSH** clone this project using **SSH**.
-
-For **HTTPS** clone with **HTTPS**.
-
-To change git protocol for all Elphel's projects - change the *remote* of this project accordingly, then run *setup.py*:
-```sh
-$ git remote -v
-$ git remote set-url ...
-$ ./setup.py
-```
-
 ### Get environment
 #### Dependencies
 * poky might require installing some packages, please check with the [Yocto Poky Manual][1]
@@ -62,3 +49,15 @@ $ (if changes in the kernel) bitbake linux-xlnx -c link -f
 $ (if changes in the rootfs and the kernel) bitbake core-image-elphel393
 ```
 
+### Note 1: Switching between GIT protocols (SSH or HTTPS)
+
+To have access to related Elphel's projects over **SSH** clone this project using **SSH**.
+
+For **HTTPS** clone with **HTTPS**.
+
+To change git protocol for all Elphel's projects - change the *remote* of this project accordingly, then run *setup.py*:
+```sh
+$ git remote -v
+$ git remote set-url ...
+$ ./setup.py
+```
