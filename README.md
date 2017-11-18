@@ -1,7 +1,8 @@
-For developers: **To have SSH access to all Elphel's repositories clone this project using SSH**
+Note for developers: **To have SSH access to all Elphel's repositories clone this project using SSH**
 # elphel393
-Scripts for fetching and setting up build environment for elphel393 camera images,
-it clones and configures several individual repositories, such as
+The project contains scripts for fetching and setting up build environment that will generate firmware images for Elphel393 camera systems.
+
+It clones and configures several individual repositories, such as
 * https://git.elphel.com/Elphel/linux-elphel
 * https://git.elphel.com/Elphel/x393
 * http://git.yoctoproject.org
@@ -9,7 +10,7 @@ it clones and configures several individual repositories, such as
 * https://github.com/Xilinx/meta-xilinx
 * https://git.elphel.com/Elphel/meta-elphel393
 
-The same script pulls updates from these repositories
+The same script (setup.py) pulls updates from these repositories
 
 ### Get environment
 #### Dependencies
