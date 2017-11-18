@@ -50,6 +50,12 @@ $ (if changes in the kernel) bitbake linux-xlnx -c link -f
 $ (if changes in the rootfs and the kernel) bitbake core-image-elphel393
 ```
 
+### More info
+
+[**Development for 10393**][3]
+
+[3]:https://wiki.elphel.com/wiki/Development_for_10393
+
 ### Note 1: Switching between GIT protocols (SSH or HTTPS)
 
 To have access to related Elphel's projects over **SSH** clone this project using **SSH**.
