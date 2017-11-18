@@ -1,4 +1,7 @@
 Note for developers: **To have SSH access to all Elphel's repositories clone this project using SSH**
+
+Note for users: **Some already built firmware images are available [here](http://community.elphel.com/files/393/). Also check [User Manual](https://wiki.elphel.com/wiki/Tmp_manual).**
+
 # elphel393
 The project contains scripts for fetching and setting up build environment that will generate firmware images for Elphel393 camera systems.
 
@@ -53,6 +56,10 @@ $ (if changes in the rootfs and the kernel) bitbake core-image-elphel393
 ### More info
 
 [**Development for 10393**](https://wiki.elphel.com/wiki/Development_for_10393)
+
+### Support
+
+support-list@support
 
 ### Note 1: Switching between GIT protocols (SSH or HTTPS)
 
