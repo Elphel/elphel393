@@ -1,3 +1,4 @@
+For developers: **To have SSH access to all Elphel's repositories clone this project using SSH**
 # elphel393
 Installation script for fetching and setting up building environment for elphel393 camera images,
 it clones and configures several individual repositories, such as
