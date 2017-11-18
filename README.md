@@ -10,11 +10,11 @@ It clones and configures several individual repositories, such as
 * https://github.com/Xilinx/meta-xilinx
 * https://git.elphel.com/Elphel/meta-elphel393
 
-The same script (setup.py) pulls updates from these repositories
+The same script (*setup.py*) pulls updates from these repositories
 
 ### Get environment
 #### Dependencies
-* poky might require installing some packages, please check with the [Yocto Poky Manual][1]
+* poky might require installing some packages, please check with the [Yocto Poky Manual](http://www.yoctoproject.org/docs/2.0/mega-manual/mega-manual.html)
 * extra requirement
 
 ```sh
@@ -34,10 +34,9 @@ $ bitbake u-boot device-tree linux-xlnx core-image-elphel393
 ```
 
 * the results are in *poky/build/tmp/deploy/images/elphel393/*
-* for more details, read [**this guide**][2] at [https://wiki.elphel.com][2]
+* for more details, read [**this guide**][1] at [https://wiki.elphel.com][1]
 
-[1]: http://www.yoctoproject.org/docs/2.0/mega-manual/mega-manual.html
-[2]: http://wiki.elphel.com/index.php?title=Poky_2.0_manual
+[1]: http://wiki.elphel.com/index.php?title=Poky_2.0_manual
 
 ### Update and refresh environment
 ```sh
@@ -53,9 +52,7 @@ $ (if changes in the rootfs and the kernel) bitbake core-image-elphel393
 
 ### More info
 
-[**Development for 10393**][3]
-
-[3]:https://wiki.elphel.com/wiki/Development_for_10393
+[**Development for 10393**](https://wiki.elphel.com/wiki/Development_for_10393)
 
 ### Note 1: Switching between GIT protocols (SSH or HTTPS)
 
