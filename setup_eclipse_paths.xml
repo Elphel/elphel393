@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project_paths>
+    <path>linux-elphel</path>
+    <path>rootfs-elphel/elphel-apps-autocampars</path>
+    <path>rootfs-elphel/elphel-apps-autoexposure</path>
+    <path>rootfs-elphel/elphel-apps-camogm</path>
+    <path>rootfs-elphel/elphel-apps-editconf</path>
+    <path>rootfs-elphel/elphel-apps-gps</path>
+    <path>rootfs-elphel/elphel-apps-histograms</path>
+    <path>rootfs-elphel/elphel-apps-imgsrv</path>
+    <path>rootfs-elphel/elphel-apps-php-extension</path>
+    <path>rootfs-elphel/elphel-apps-tempmon</path>
+    <path>rootfs-elphel/elphel-init</path>
+    <path>rootfs-elphel/elphel-udev-rules</path>
+    <path>rootfs-elphel/elphel-web-393</path>
+    <path>rootfs-elphel/elphel-web-camvc</path>
+    <path>rootfs-elphel/elphel-web-hwmon</path>
+</project_paths>

@@ -6,3 +6,5 @@ meta
 poky
 rootfs-elphel
 tools
+bootable-images
+projects.json
