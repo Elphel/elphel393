@@ -87,6 +87,10 @@ def copy_eclipse_settings(name):
     elif os.path.isfile(name+"/.project"):
       print("Not copying up files for Eclipse project: .project is already there")
 
+    if (not os.path.islink(name+"/scripts")):
+      shout("ln -sf ../../scripts/ "+name+"/scripts")
+      print("Linked scripts to project")
+
 
 def read_local_conf(conf_file,pattern):
     ret = []
@@ -135,7 +139,6 @@ def read_git_proto(conf_file,pattern):
                 test = pars[1].find(pattern)
                 if test!=-1:
                   ret = "1"
-                  print("ogogo! "+pars[1].strip())
 
   return ret
 
