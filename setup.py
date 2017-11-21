@@ -75,21 +75,26 @@ def cloneandcheckout(name,item):
             shout("git pull")
             os.chdir(cwd)
 
-def copy_eclipse_settings(name):
+def copy_eclipse_settings(name,return_path):
     EPS = "eclipse_project_setup"
     if (not os.path.isfile(name+"/.project")) and (os.path.isdir(name+"/"+EPS)):
         print("  Copying up files for Eclipse project")
         print(bcolors.WARNING+"  Copying "+name+"/"+EPS+" to "+name+"/"+bcolors.ENDC)
         shout("rsync -av "+name+"/"+EPS+"/ "+name+"/")
 
+        # it does not have to be an Eclipse project
+        if (not os.path.islink(name+"/scripts")):
+          # sub all character line into '..', keep '/'
+          #regex = re.compile(r"[^/]+")
+          #return_path = regex.sub("..",name)
+          shout("ln -sf "+return_path+"/scripts "+name+"/scripts")
+          print("Linked scripts/ to project")
+
+
     if not os.path.isdir(name+"/"+EPS):
       print("Not copying up files for Eclipse project: not an Eclipse project")
     elif os.path.isfile(name+"/.project"):
       print("Not copying up files for Eclipse project: .project is already there")
-
-    if (not os.path.islink(name+"/scripts")):
-      shout("ln -sf ../../scripts/ "+name+"/scripts")
-      print("Linked scripts to project")
 
 
 def read_local_conf(conf_file,pattern):
@@ -203,7 +208,7 @@ for p,v in Projects.items():
         for k,l in v.items():
             print("\n"+bcolors.BOLDWHITE+"*"+bcolors.ENDC+" "+k)
             cloneandcheckout(k,update_branch(project_branches,k,l,git_proto))
-            copy_eclipse_settings(k)
+            copy_eclipse_settings(k,"../..")
 
             #special case for x393 fpga project
             if k=="x393":
@@ -219,7 +224,7 @@ for p,v in Projects.items():
 
     elif isinstance(v,list):
         cloneandcheckout(p,update_branch(project_branches,p,v,git_proto))
-        copy_eclipse_settings(p)
+        copy_eclipse_settings(p,"..")
 
     else:
         print("Error?")
