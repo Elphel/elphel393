@@ -82,18 +82,19 @@ def copy_eclipse_settings(name,return_path):
         print(bcolors.WARNING+"  Copying "+name+"/"+EPS+" to "+name+"/"+bcolors.ENDC)
         shout("rsync -av "+name+"/"+EPS+"/ "+name+"/")
 
+        # it does not have to be an Eclipse project
+        if (not os.path.islink(name+"/scripts")):
+          # sub all character line into '..', keep '/'
+          #regex = re.compile(r"[^/]+")
+          #return_path = regex.sub("..",name)
+          shout("ln -sf "+return_path+"/scripts "+name+"/scripts")
+          print("Linked scripts/ to project")
+
+
     if not os.path.isdir(name+"/"+EPS):
       print("Not copying up files for Eclipse project: not an Eclipse project")
     elif os.path.isfile(name+"/.project"):
       print("Not copying up files for Eclipse project: .project is already there")
-
-    # it does not have to be an Eclipse project
-    if (not os.path.islink(name+"/scripts")):
-      # sub all character line into '..', keep '/'
-      #regex = re.compile(r"[^/]+")
-      #return_path = regex.sub("..",name)
-      shout("ln -sf "+return_path+"/scripts "+name+"/scripts")
-      print("Linked scripts/ to project")
 
 
 def read_local_conf(conf_file,pattern):
