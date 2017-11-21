@@ -237,7 +237,7 @@ shout("ln -sf poky/build/tmp/deploy/images/elphel393/ bootable-images")
 path = os.getcwd()
 os.chdir(path+"/poky")
 
-conf_notes = "meta-yocto/conf/conf-notes.txt"
+conf_notes = "meta-poky/conf/conf-notes.txt"
 
 if os.path.isfile(conf_notes):
     os.remove(conf_notes)
@@ -278,7 +278,7 @@ with open(bblayers_conf,"a") as f:
     f.write("""\
 BBLAYERS = " \\
   {0}/poky/meta \\
-  {0}/poky/meta-yocto \\
+  {0}/poky/meta-poky \\
   {0}/poky/meta-yocto-bsp \\
   {0}/meta/meta-ezynq \\
   {0}/meta/meta-elphel393 \\
