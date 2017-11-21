@@ -46,7 +46,7 @@ def main():
 should have CDT and EGit plugins installed.
 USAGE:
    %s eclipse-home [[path-to-workspace] project-paths]
-   First (mandatory) argument of this program (eclipse-home) is the full path to Eclipse instalaltion
+   First (mandatory) argument of this program (eclipse-home) is the full path to Eclipse installation
    (directory that has eclipse executable and eclipse.ini files).
    Second (optional) argument (path-to-workspace) is the path to workspace. If not specified,
    then ../workspace_elphel393 will be used.
@@ -55,7 +55,7 @@ USAGE:
 
 The program will not overwrite or modify any existing workspace.        
 """%(argv[0],))
-        return
+        return 0
     eclipse_home = argv[1]
         
     if (len(argv) > 3):

@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
-from __future__ import division
 from __future__ import print_function
-"""
+from __future__ import division
+
+'''
 # @file used_files.py
 # @brief Extract file access data after build, modify CDT project configuration
 # (.cproject) accordingly
@@ -20,52 +21,35 @@ from __future__ import print_function
 # along with this program.  If not, see <http:#www.gnu.org/licenses/>.
 
 @author:     Andrey Filippov
+@copyright:  2015 Elphel, Inc.
 @license:    GPLv3.0+
 @contact:    andrey@elphel.coml
 @deffield    updated: Updated
-"""
+'''
 __author__ = "Andrey Filippov"
-__copyright__ = "Copyright 2016, Elphel, Inc."
+__copyright__ = "Copyright 2015, Elphel, Inc."
 __license__ = "GPL"
 __version__ = "3.0+"
 __maintainer__ = "Andrey Filippov"
 __email__ = "andrey@elphel.com"
 __status__ = "Development"
 
-import sys
 import os
+import sys
 import time
-import xml.etree.ElementTree as ET
-'''
-TODO:Automate, find out why separate touch commands are needed
-Run this program twice:
-1-st run ./used_files.py linux -1
-and save shown timestamp
-Then run (some mystery here)
-touch src/drivers/ata/ahci_elphel.c
-touch src/drivers/elphel/sensor_common.c
-Wait 5 seconds and run (in a different console with appropriate sourcing)
-bitbake linux-xlnx -c compile -f 
-Then again
-./used_files.py linux <timestamp_from_the_first_run>
-If somethong went wrong you will need to resore .cproject from eclipse_project_setup directory
-
-For php:
-bitbake php -c cleansstate
-bitbake php -c unpack -f
-bitbake php -c configure -f
-./used_files.py php -1
-bitbake php -c compile -f
-./used_files.py php 1471044836.8
-
-Doing:
-bitbake php -c compile -f
-./used_files.py php -1
-bitbake php -c compile -f
-./used_files.py php 1471044836.8
-Corrupts make process
-
-'''
+import subprocess
+import datetime
+import xml.etree.ElementTree
+MAIN_SRC = 'src' # main source subdirectory path relative to project directory. SHould not be './' !
+#    print (" cwd=",os.getcwd())
+def get_bitbake_target(project_root):
+    cproject_path = os.path.join(project_root,".cproject")
+    try:
+        return xml.etree.ElementTree.parse(cproject_path).getroot().find(
+        'storageModule/cconfiguration/storageModule/configuration/folderInfo/toolChain/builder').get('arguments').split()[0]
+    except:
+        return None
+    
 def file_tree(flist): # Each file in list is a file, no directories
     ftree={}
     for p in flist:
@@ -120,20 +104,66 @@ def exclude_list(ftree, flist):
     pl = sorted (pl)
     return pl     
     
+def get_sourceEntries(xml_root, root_dir):
+#    main_src = 'src' # main source folder
+    for sm in xml_root.iter('storageModule'):
+        attr = sm.attrib
+        try:
+            if sm.attrib['moduleId'] !=  'cdtBuildSystem':
+                continue
+        except:
+            continue
+        for se in sm.iter('sourceEntries'):
+            for en in se:
+                if en.tag == 'entry':
+                    attr = en.attrib
+                    try:
+                        if (attr['kind'] ==  'sourcePath') and (attr['name'] ==  root_dir):
+                            se.remove (en)
+                            print ("Removed existing entry, name= ",attr['name'])
+                            return se
+                    except:
+                        print ("error matching attributes for ",en.tag)
+                        pass
+        #look for MAIN_SRC entry
+        for se in sm.iter('sourceEntries'):
+            for en in se:
+                if en.tag == 'entry':
+                    attr = en.attrib
+                    try:
+                        if (attr['kind'] ==  'sourcePath') and (attr['name'] ==  MAIN_SRC):
+                            print ("Found existing entry for main source folder, name= ",attr['name'])
+                            return se
+                    except:
+                        print ("error matching attributes for ",en.tag)
+                        pass
+        
+        #create new sourceEntries
+        print ("Creating new sourceEntries element")
+        try:    
+            se = xml.etree.ElementTree.SubElement(sm.find('configuration'), 'sourceEntries')
+            #first entry - src folder
+            xml.etree.ElementTree.SubElement(se, 'entry', {"flags":"VALUE_WORKSPACE_PATH", "kind":"sourcePath", "name":MAIN_SRC})
+            return se
+        except:
+            return None
             
-def proc_tree():
-    DEBUG = True
+    return None                
+    
+            
+def proc_tree(root_path, start_time, output_project_file, DEBUG): # string, float
+    print("root_path=",root_path)
+    print("start_time=",start_time)
+    print("output_project_file=",output_project_file)
+    print("DEBUG=",DEBUG)
+    
     extensions =    [".h",".c",".cpp"]
     exclude_start = ["linux"+os.sep+"scripts"+os.sep,"linux"+os.sep+"source"+os.sep+"scripts"+os.sep]
     delta_t = 3 # seconds
-    try:
-        root_path = sys.argv[1]
-    except:
-        print ("Calling %s <root directory path> [timestamp]"%(os.path.basename(sys.argv[0])))
-    try:
-        start_time = float(sys.argv[2])
-    except:
-        start_time = 0.0
+#    try:
+#        start_time = float(sys.argv[2])
+#    except:
+#        start_time = 0.0
 
     touch_files= start_time < 0.0   
     print ("root_path = %s"%(root_path))
@@ -188,12 +218,16 @@ def proc_tree():
                 include_lst.append(p)
     if touch_files:
         print (len(lstFiles), "last time = ", time.time())
-        return    
-            
+        return time.time()  
     excluding = exclude_list(all_tree, include_lst)        
 #    print (all_tree)
 #    print (sorted(include_lst))
 #    print ("|".join(excluding))
+#os.sep.join(s1.split(os.sep)[1:])  
+    including=[]
+    #get rid of top directory in include paths
+    for p in include_lst:
+        including.append(os.sep.join(p.split(os.sep)[1:])) 
     if DEBUG:        
         with open("all_sources.lst","w" ) as f:
             for p in sorted(lstFiles):
@@ -213,72 +247,154 @@ def proc_tree():
             for p in excluding:
                 print (p, file=f)
         with open("including.lst","w" ) as f:
-            for p in include_lst:
+            for p in including:
                 print (p, file=f)
 #    include_tree= file_tree(sorted(include_lst))
 #    print(include_tree)
-    root_dir=include_lst[0].split(os.sep)[0]
-    print ("root_dir=",root_dir)
+    try:
+        root_dir=include_lst[0].split(os.sep)[0] #may fail if list is empty
+        print ("root_dir=",root_dir)
+    except:
+        print ("No files used from ",root_path)
+        root_dir=root_path    
     
-    xml= ET.parse(".cproject")
-    root=xml.getroot()
-#    for child in root:
-#        print(child.tag, child.attrib)
+    root= xml.etree.ElementTree.parse(".cproject").getroot()
+    
+    if len(include_lst):
+        se = get_sourceEntries(root, root_dir)
+        if se is None:
+            print ("No sourceEntries exist and could not create one")
+            return -1
+        #add other header files in header directory, excluding...
+    #    if len(excluding) < len(including):       
+        xml.etree.ElementTree.SubElement(se,
+                                            'entry',
+                                            {"flags":"VALUE_WORKSPACE_PATH", "kind":"sourcePath", "name":root_dir, "excluding":"|".join(excluding)})
+                                
+    #   else:
+    #               xml.etree.ElementTree.SubElement(se,
+    #                                         'entry',
+    #                                          {"flags":"VALUE_WORKSPACE_PATH", "kind":"sourcePath", "name":root_dir, "including":"|".join(including)})
 
+                                    
     for child in root.iter('sourceEntries'):
         for gchild in child:
-            print(gchild.tag)
-    
-    for child in root.iter('sourceEntries'):
-        for gchild in child:
-            if gchild.tag == 'entry':
-                attr = gchild.attrib
-                try:
-                    if (attr['kind'] ==  'sourcePath') and (attr['name'] ==  root_dir):
-                        child.remove (gchild)
-                        print ("Removed existing entry ",gchild.tag)
-                        break
-                except:
-                    print ("error matching attributes for ",gchild.tag)
-                    pass
-        break #after first   'sourceEntries' - should be just one?      
-    ET.SubElement(child, 'entry', {"flags":"VALUE_WORKSPACE_PATH", "kind":"sourcePath", "name":root_dir, "excluding":"|".join(excluding)})
-                             
-    for child in root.iter('sourceEntries'):
-        for gchild in child:
-            print(gchild.tag)
-            
-    oneliner= ET.tostring(root)
+            print("tag=",gchild.tag," name=",gchild.attrib['name']," kind=",gchild.attrib['kind'])
+    oneliner= xml.etree.ElementTree.tostring(root)
     #overwrites original .cproject, may change to somethong different
-    with open(".cproject", "wr") as f:
+    with open(output_project_file, "wr") as f:
         f.write("""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?>""")
         f.write(oneliner)
             
     print (len(lstFiles), len(lst_a), "last access time = ",latest_at)
-                
-if __name__ == '__main__':
-    proc_tree()
-    """
-make clean # otherwise compiled files are preserved    
-bitbake apps-autoexposure -c cleansstate
-bitbake apps-autoexposure -c unpack -f
-bitbake apps-autoexposure -c configure -f
-./used_files.py sysroots -1
-bitbake apps-autoexposure -c compile -f
-./used_files.py sysroots 1473297567.42
+    return latest_at  
 
+def main():
+    DEBUG = False
+    output_project_file=".cproject" #".cproject_new" Overwrite or save to a new file
+    argv = sys.argv
+    top_h_dir='sysroots'
+    if len(argv) < 2:
+        print ("""
+   This program creates a list of the source files (such as C headers) used to build the project
+for Eclipse CDT plugin. It only needs to be run for the new projects, the existing ones already
+have .cproject file distributed in each subproject repository (in 'eclipse_project_setup' sub-
+directory of the root sub-project directory). This sub-directory content is copyied to the sub-
+project root by setup.py when it is first run. You may delete .project file (while Eclipse is closed)
+and re-run setup.py (in elphel393 directory) restore default project settings if they get corrupted.
 
-eyesis@eyesis-SH87R:~/git/elphel393/rootfs-elphel/elphel-apps-autoexposure$ ./used_files.py sysroots/elphel393/usr -1
-root_path = sysroots/elphel393/usr
-5615 last time =  1473300068.01
-eyesis@eyesis-SH87R:~/git/elphel393/rootfs-elphel/elphel-apps-autoexposure$ ./used_files.py sysroots/elphel393/usr 1473300068.01
-root_path = sysroots/elphel393/usr
-root_dir= sysroots
-entry
-entry
-entry
-entry
-entry
-5615 84 last access time =  1473300080.1
-    """
+   The program does not rely on exact duplicating of the environment used by bitbake, instead it
+"spies" on the bitbake by noticing which files it accesses during build (using file modification and
+access timestamps) and creates list of exclusions. As the access time is recorded only after the first
+access after modification, the program first unpacks/touches the sources.
+
+The extra_source directory is the specified in the command line directory (in addition to hard-coded
+'src') with sub-tree of the source files (headers) to be filtered.
+ 
+Here is the full sequence (target is the project name extracted from .cproject):
+1. bitbake target-c cleansstate
+2. bitbake target-c unpack -f
+3. bitbake target-c configure -f
+4. Scan all files under extra_source directory, find last modification stamp
+5. bitbake target-c compile -f
+6. bitbake target-c install -f # in the case of Linux kernel in triggers compilation of the kernel
+   modules
+7. Scan source files, create list of the used files and then list of excluded files (Eclipse CDT allows
+to specify directory and exclusion filter)
+8. Add (or replace) the record in .cproject file that specifies source directory and the filter
+
+You need to run indexing  (right-click on the project in the Navigator panel -> Index -> rebuild
+when the workspace is opened with the modified .cproject file.
+
+Do not run this program when Eclipse IDE is opened that includes the current project!
+
+The program should be launched from the project root directory, e.g. for applications:
+    ./scripts/used_files.py sysroots
+
+Program can either overwrite the current .cproject configuration file or create a new modified version
+if specified in teh command line argument. In that case program runs in debug mode and generates lists
+of files in the project root directory:
+    all_sources.lst - all scanned source file with last access timestamps
+    including.lst - list of the files (relative to specified extra_source directory) used by bitbake
+    excluding.lst - list of the unused files (they will appear crossed in the Project Navigator) 
+  
+USAGE:
+   %s extra_source [path-to-modified-cproject]
+   
+   First (mandatory) argument of this program (extra_source) is the relative path additional source/header
+   files. For Linux kernel development it is 'linux', for php extension - 'php, for applications - 'sysroots'
+   (symlink to header files) 
+   
+   Second (optional) argument (path-to-modified-cproject) is the relative to project root file to write
+   modified .cproject content. If specified it forces program to run in debug mode and generate 3 file lists.
+"""%(argv[0],))
+        return 0
+# Check that there is MAIN_SRC ('src') subdirectory in the project directory    
+    if not os.path.isdir(MAIN_SRC):
+        print("\n*** Project source files should be in subdirectory '%s' for this program to run. ***\n"%(MAIN_SRC,))
+        return 1
+    top_h_dir = argv[1]
+    if len(argv) > 2:
+        output_project_file = argv[2] # Save result .cproject to a new file
+        DEBUG = True
+
+    print (" cwd=",os.getcwd())
+    bitbake_target = get_bitbake_target(os.getcwd())
+    print ("bitbake target=",bitbake_target)
+    
+    if not bitbake_target:
+        print ("Failed to find bitbake target from .cproject file (it has to be set up in project->properties->C/C++ Build command")
+        print ("For example: ${workspace_loc:/linux-elphel/scripts/run_bitbake.sh} linux-xlnx")
+        return 1
+    bitbake = './scripts/run_bitbake.sh'
+    cmnd = bitbake+ ' '+bitbake_target+' -c cleansstate'
+#   subprocess.call("ls -all", shell = True)
+    return_code = subprocess.call(cmnd, shell = True)
+    print ('Command: %s returned %d'%(cmnd,return_code))
+    cmnd = bitbake+ ' '+bitbake_target+' -c unpack -f'
+    return_code = subprocess.call(cmnd, shell = True)
+    print ('Command: %s returned %d'%(cmnd,return_code))
+    cmnd = bitbake+ ' '+bitbake_target+' -c configure -f'
+    return_code = subprocess.call(cmnd, shell = True)
+    print ('Command: %s returned %d'%(cmnd,return_code))
+
+    last_mod = proc_tree(top_h_dir, -1.0, output_project_file,  DEBUG);
+    print ('last_mod=',last_mod)
+    print("waiting 5 seconds")
+    time.sleep(5)
+    print("waiting over")
+    cmnd = bitbake+ ' '+bitbake_target+' -c compile -f'
+    return_code = subprocess.call(cmnd, shell = True)
+    print ('Command: %s returned %d'%(cmnd,return_code))
+    cmnd = bitbake+ ' '+bitbake_target+' -c install -f'
+    return_code = subprocess.call(cmnd, shell = True)
+    print ('Command: %s returned %d'%(cmnd,return_code))
+
+    latest_at = proc_tree(top_h_dir, last_mod+3, output_project_file, DEBUG);
+    print ('latest_at=',latest_at)
+
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())    
