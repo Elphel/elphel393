@@ -1,6 +1,8 @@
 attic/*
 .directory
-fpga-elphel
+/fpga-elphel/x393
+/fpga-elphel/x393_sata
+/fpga-elphel/x359
 linux-elphel
 meta
 poky
