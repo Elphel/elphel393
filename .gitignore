@@ -1,8 +1,5 @@
 attic/*
 .directory
-/fpga-elphel/x393
-/fpga-elphel/x393_sata
-/fpga-elphel/x359
 linux-elphel
 meta
 poky
@@ -13,3 +10,5 @@ projects.json
 /scripts/.project
 /scripts/.pydevproject
 /scripts/.settings
+/fpga-elphel
+!/fpga-elphel/eclipse_workspace_setup
