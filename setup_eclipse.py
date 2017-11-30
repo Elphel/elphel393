@@ -34,9 +34,16 @@ import sys
 import subprocess
 import datetime
 import xml.etree.ElementTree
+#import shutil
+from distutils.dir_util import copy_tree
+#import distutils
+
 def main():
     workspace = '../workspace-elphel393'
+    workspace_fpga = '../workspace-elphel393_fpga'
     project_paths = "./setup_eclipse_paths.xml"
+    project_paths_fpga = "./setup_eclipse_fpga_paths.xml"
+    fpga_to_workspace = "fpga-elphel/eclipse_workspace_setup"
     continue_setup = False # True # disable later
     argv = sys.argv
     print (argv)
@@ -69,7 +76,10 @@ The program will not overwrite or modify any existing workspace.
 
     if (len(argv) > 2):
         workspace = argv[2]
-        
+    fpga= "fpga" in workspace
+    if fpga:
+        print ("Processing FPGA projects")
+        project_paths = project_paths_fpga
     workspace = os.path.abspath(workspace)
     need_import = True    
     if os.path.exists(workspace):
@@ -100,6 +110,18 @@ The program will not overwrite or modify any existing workspace.
     if return_code > 0:
         print ("Can not continuie on error")
         return 1
+    if fpga:
+#        project_paths = project_paths_fpga
+        print ("Copying VDT settings (",fpga_to_workspace,") to workspace (",workspace,")")
+#        shutil.copytree(fpga_to_workspace+"/.metadata", workspace+"/.metadata")
+        
+#        distutils.dir_util.copy_tree(fpga_to_workspace,workspace)
+        copy_tree(fpga_to_workspace,workspace)
+        
+        
+        '''
+      cp -r elphel393/fpga-elphel/eclipse_workspace_setup/.metadata ./workspace-elphel393-fpga-03
+'''    
     #creating workspace/.metadata/.plugins/org.eclipse.core_runtime/.settings/org.eclipse.egit.core.prefs
     egit_prefs_path = os.path.join(workspace,".metadata",".plugins","org.eclipse.core.runtime",".settings","org.eclipse.egit.core.prefs")
     egit_prefs="GitRepositoriesView.GitDirectories="
@@ -171,4 +193,7 @@ The program will not overwrite or modify any existing workspace.
             f.write(ba)
          
 if __name__ == "__main__":
-    sys.exit(main())    
+    sys.exit(main())
+"""
+eyesis@eyesis-SH87R:~/nc393/elphel393$ ./setup_eclipse.py /home/eyesis/eclipse/jee-oxygen/eclipse/ ../workspace-elphel393-fpga setup_eclipse_fpga_paths.xml 
+"""    

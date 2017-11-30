@@ -10,6 +10,6 @@ rootfs-elphel
 tools
 bootable-images
 projects.json
-.project
-.pydevproject
-.settings
+/scripts/.project
+/scripts/.pydevproject
+/scripts/.settings
