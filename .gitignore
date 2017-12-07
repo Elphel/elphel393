@@ -1,6 +1,5 @@
 attic/*
 .directory
-fpga-elphel
 linux-elphel
 meta
 poky
@@ -8,3 +7,8 @@ rootfs-elphel
 tools
 bootable-images
 projects.json
+/scripts/.project
+/scripts/.pydevproject
+/scripts/.settings
+/fpga-elphel
+!/fpga-elphel/eclipse_workspace_setup

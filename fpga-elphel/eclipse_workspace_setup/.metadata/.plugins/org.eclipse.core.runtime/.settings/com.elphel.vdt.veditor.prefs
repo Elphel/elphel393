@@ -1,0 +1,15 @@
+ClearProblemsOnToolStart.Enable=true
+Color.Default=00,00,00
+Color.DisabledCode=230,230,230
+Debug.Closure=false
+Debug.Disabled=false
+Debug.Launching=false
+Debug.Other=false
+Debug.Parsing=false
+Debug.Preprocessor=false
+Debug.ToolsSequence=false
+DisabledCode.Enable=true
+Parser.MinReparse=945
+Parser.OnType=false
+Style.indentSize=4
+eclipse.preferences.version=1
