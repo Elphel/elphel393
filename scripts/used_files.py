@@ -49,7 +49,7 @@ def get_bitbake_target(project_root):
         'storageModule/cconfiguration/storageModule/configuration/folderInfo/toolChain/builder').get('arguments').split()[0]
     except:
         return None
-    
+
 def file_tree(flist): # Each file in list is a file, no directories
     ftree={}
     for p in flist:
@@ -62,12 +62,12 @@ def file_tree(flist): # Each file in list is a file, no directories
                     node[segm] = None
                 else:
                     node[segm] = {}
-            node=node[segm]        
-                        
-    return ftree                   
+            node=node[segm]
+
+    return ftree
 
 def exclude_list(ftree, flist):
-    mark = "*" # no file/dir name can be "*" 
+    mark = "*" # no file/dir name can be "*"
     def list_tree_recursive(root):
         rslt = []
         if not mark in root:
@@ -77,12 +77,12 @@ def exclude_list(ftree, flist):
                 if root[n] is None:
                     rslt.append([n])
                 else:
-                    
+
                     for l in list_tree_recursive(root[n]):
                         rslt.append([n]+l)
         return rslt
-                        
-    ftree[mark]=None # mark top level dir                                         
+
+    ftree[mark]=None # mark top level dir
     for p in flist:
         node = ftree
         for segm in p.split(os.sep)[:-1]:
@@ -91,7 +91,7 @@ def exclude_list(ftree, flist):
         del node[p.split(os.sep)[-1]]
     #print (ftree)
 #    for k in ftree:
-#       print(k) 
+#       print(k)
     #Now prune unused directories
     #prune_recursive(ftree) # (assuming root is used)
     # now create list
@@ -102,8 +102,8 @@ def exclude_list(ftree, flist):
     for l in files_list_list:
         pl.append(os.path.join(*(l[1:])))
     pl = sorted (pl)
-    return pl     
-    
+    return pl
+
 def get_sourceEntries(xml_root, root_dir):
 #    main_src = 'src' # main source folder
     for sm in xml_root.iter('storageModule'):
@@ -137,26 +137,26 @@ def get_sourceEntries(xml_root, root_dir):
                     except:
                         print ("error matching attributes for ",en.tag)
                         pass
-        
+
         #create new sourceEntries
         print ("Creating new sourceEntries element")
-        try:    
+        try:
             se = xml.etree.ElementTree.SubElement(sm.find('configuration'), 'sourceEntries')
             #first entry - src folder
             xml.etree.ElementTree.SubElement(se, 'entry', {"flags":"VALUE_WORKSPACE_PATH", "kind":"sourcePath", "name":MAIN_SRC})
             return se
         except:
             return None
-            
-    return None                
-    
-            
+
+    return None
+
+
 def proc_tree(root_path, start_time, output_project_file, DEBUG): # string, float
     print("root_path=",root_path)
     print("start_time=",start_time)
     print("output_project_file=",output_project_file)
     print("DEBUG=",DEBUG)
-    
+
     extensions =    [".h",".c",".cpp"]
     exclude_start = ["linux"+os.sep+"scripts"+os.sep,"linux"+os.sep+"source"+os.sep+"scripts"+os.sep]
     delta_t = 3 # seconds
@@ -165,9 +165,9 @@ def proc_tree(root_path, start_time, output_project_file, DEBUG): # string, floa
 #    except:
 #        start_time = 0.0
 
-    touch_files= start_time < 0.0   
+    touch_files= start_time < 0.0
     print ("root_path = %s"%(root_path))
-#    root_path = "/home/eyesis/git/poky/linux-elphel/linux/"    
+#    root_path = "/home/eyesis/git/poky/linux-elphel/linux/"
     lstFiles = []
     # Append  files to a list
     for path, _, files in os.walk(root_path, followlinks = True):
@@ -176,9 +176,9 @@ def proc_tree(root_path, start_time, output_project_file, DEBUG): # string, floa
                 if f.endswith(ext):
                     lstFiles.append(os.path.join(path, f))
                     break
-     
+
     all_tree= file_tree(sorted(lstFiles))
-    include_lst=[]        
+    include_lst=[]
     lst_a = []
     latest_at=0
     for p in lstFiles:
@@ -188,47 +188,45 @@ def proc_tree(root_path, start_time, output_project_file, DEBUG): # string, floa
                     os.utime(os.path.realpath(p), None)
                 except:
                     print("missing linked file: %s"%(os.path.realpath(p)))
-            else:    
+            else:
                 os.utime(p, None)
-        else:        
+        else:
 #           at = time.ctime(os.stat(p).st_atime)
             try:
                 at = os.stat(p).st_atime
                 l = None
             except:
-                at = 0    
+                at = 0
             if  os.path.islink(p):
                 try:
                     l = os.path.realpath(p)
                     at = os.stat(l).st_atime
                 except:
                     at = 0 # missing file
-            latest_at = max((latest_at,at))    
+            latest_at = max((latest_at,at))
             if at > (start_time + delta_t):
                 #Scripts/lexers result in problems
                 exclude=False
                 for exStr in exclude_start:
                     if p.startswith(exStr):
-                        exclude=True
                         break
-                if exclude:
-                    break        
-                #exclude_start
-                lst_a.append([p,at,l])
-                include_lst.append(p)
+                else:
+                  lst_a.append([p,at,l])
+                  include_lst.append(p)
+
     if touch_files:
         print (len(lstFiles), "last time = ", time.time())
-        return time.time()  
-    excluding = exclude_list(all_tree, include_lst)        
+        return time.time()
+    excluding = exclude_list(all_tree, include_lst)
 #    print (all_tree)
 #    print (sorted(include_lst))
 #    print ("|".join(excluding))
-#os.sep.join(s1.split(os.sep)[1:])  
+#os.sep.join(s1.split(os.sep)[1:])
     including=[]
     #get rid of top directory in include paths
     for p in include_lst:
-        including.append(os.sep.join(p.split(os.sep)[1:])) 
-    if DEBUG:        
+        including.append(os.sep.join(p.split(os.sep)[1:]))
+    if DEBUG:
         with open("all_sources.lst","w" ) as f:
             for p in sorted(lstFiles):
                 try:
@@ -256,27 +254,27 @@ def proc_tree(root_path, start_time, output_project_file, DEBUG): # string, floa
         print ("root_dir=",root_dir)
     except:
         print ("No files used from ",root_path)
-        root_dir=root_path    
-    
+        root_dir=root_path
+
     root= xml.etree.ElementTree.parse(".cproject").getroot()
-    
+
     if len(include_lst):
         se = get_sourceEntries(root, root_dir)
         if se is None:
             print ("No sourceEntries exist and could not create one")
             return -1
         #add other header files in header directory, excluding...
-    #    if len(excluding) < len(including):       
+    #    if len(excluding) < len(including):
         xml.etree.ElementTree.SubElement(se,
                                             'entry',
                                             {"flags":"VALUE_WORKSPACE_PATH", "kind":"sourcePath", "name":root_dir, "excluding":"|".join(excluding)})
-                                
+
     #   else:
     #               xml.etree.ElementTree.SubElement(se,
     #                                         'entry',
     #                                          {"flags":"VALUE_WORKSPACE_PATH", "kind":"sourcePath", "name":root_dir, "including":"|".join(including)})
 
-                                    
+
     for child in root.iter('sourceEntries'):
         for gchild in child:
             print("tag=",gchild.tag," name=",gchild.attrib['name']," kind=",gchild.attrib['kind'])
@@ -286,9 +284,9 @@ def proc_tree(root_path, start_time, output_project_file, DEBUG): # string, floa
         f.write("""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?>""")
         f.write(oneliner)
-            
+
     print (len(lstFiles), len(lst_a), "last access time = ",latest_at)
-    return latest_at  
+    return latest_at
 
 def main():
     DEBUG = False
@@ -311,7 +309,7 @@ access after modification, the program first unpacks/touches the sources.
 
 The extra_source directory is the specified in the command line directory (in addition to hard-coded
 'src') with sub-tree of the source files (headers) to be filtered.
- 
+
 Here is the full sequence (target is the project name extracted from .cproject):
 1. bitbake target-c cleansstate
 2. bitbake target-c unpack -f
@@ -337,20 +335,20 @@ if specified in teh command line argument. In that case program runs in debug mo
 of files in the project root directory:
     all_sources.lst - all scanned source file with last access timestamps
     including.lst - list of the files (relative to specified extra_source directory) used by bitbake
-    excluding.lst - list of the unused files (they will appear crossed in the Project Navigator) 
-  
+    excluding.lst - list of the unused files (they will appear crossed in the Project Navigator)
+
 USAGE:
    %s extra_source [path-to-modified-cproject]
-   
+
    First (mandatory) argument of this program (extra_source) is the relative path additional source/header
    files. For Linux kernel development it is 'linux', for php extension - 'php, for applications - 'sysroots'
-   (symlink to header files) 
-   
+   (symlink to header files)
+
    Second (optional) argument (path-to-modified-cproject) is the relative to project root file to write
    modified .cproject content. If specified it forces program to run in debug mode and generate 3 file lists.
 """%(argv[0],))
         return 0
-# Check that there is MAIN_SRC ('src') subdirectory in the project directory    
+# Check that there is MAIN_SRC ('src') subdirectory in the project directory
     if not os.path.isdir(MAIN_SRC):
         print("\n*** Project source files should be in subdirectory '%s' for this program to run. ***\n"%(MAIN_SRC,))
         return 1
@@ -362,7 +360,7 @@ USAGE:
     print (" cwd=",os.getcwd())
     bitbake_target = get_bitbake_target(os.getcwd())
     print ("bitbake target=",bitbake_target)
-    
+
     if not bitbake_target:
         print ("Failed to find bitbake target from .cproject file (it has to be set up in project->properties->C/C++ Build command")
         print ("For example: ${workspace_loc:/linux-elphel/scripts/run_bitbake.sh} linux-xlnx")
@@ -397,4 +395,4 @@ USAGE:
     return 0
 
 if __name__ == "__main__":
-    sys.exit(main())    
+    sys.exit(main())
