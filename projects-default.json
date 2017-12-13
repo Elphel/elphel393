@@ -62,7 +62,8 @@
         ],
         "elphel-udev-rules":[
             "https://git.elphel.com/Elphel/elphel-udev-rules.git",
-            "master",""
+            "rocko","",
+            "#master",""
         ],
         "elphel-web-393":[
             "https://git.elphel.com/Elphel/elphel-web-393.git",
