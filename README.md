@@ -49,7 +49,7 @@ $ ./setup.py
 ```sh
 $ cd poky
 $ . ./oe-init-build-env
-$ (if changes in the kernel) bitbake linux-xlnx -c link -f
+$ (if changes in the kernel) bitbake linux-xlnx -c link -f; bitbake linux-xlnx
 $ (if changes in the rootfs and the kernel) bitbake core-image-elphel393
 ```
 
@@ -59,7 +59,7 @@ $ (if changes in the rootfs and the kernel) bitbake core-image-elphel393
 
 ### Support
 
-support-list@support
+support-list@support.elphel.com
 
 ### Note 1: Switching between GIT protocols (SSH or HTTPS)
 
