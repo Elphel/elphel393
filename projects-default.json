@@ -14,12 +14,12 @@
         ],
         "meta-ezynq":[
             "https://git.elphel.com/Elphel/meta-ezynq.git",
-            "master","",
+            "master","7a7600ac52c7f15a574f6bc034639b0f3075010b",
             "#master","00496002f513fc253f5356ee675fdcbb8b4a9962"
         ],
         "meta-elphel393":[
             "https://git.elphel.com/Elphel/meta-elphel393.git",
-            "master","",
+            "master","25184e7330c40b0d42a5f5f2602dc4db640ca076",
             "#master","a93edc1f91e82e5e613fa38bd800e307c348b9ee"
         ]
     },
@@ -29,90 +29,90 @@
     ],
     "linux-elphel" :[
         "https://git.elphel.com/Elphel/linux-elphel.git",
-        "master","",
+        "master","45b74e7e97e7f242d6479a1aab28bd5f685d2312",
         "#master","cc50d7fa07140e680b09a8add617e62b4ba35aa0"
     ],
     "fpga-elphel"  : {
         "x393"     :[
             "https://git.elphel.com/Elphel/x393.git",
-            "master","",
+            "master","1227a90e5207a2b36d690bb358547d10cc30d8f6",
             "#master","edcdce9550c20726618210149bc1cb4549fd00be"
         ],
         "x393_sata":[
             "https://git.elphel.com/Elphel/x393_sata.git",
-            "master",""
+            "master","8a65a9334d33477dba85cc3955df1e7590793bb5"
         ],
         "x359"     :[
             "https://git.elphel.com/Elphel/x359.git",
-            "master",""
+            "master","0e0e2628b6faab70b814c2da559d6f68f81b3c33"
         ]
     },
     "rootfs-elphel": {
         "elphel-apps-imgsrv":[
             "https://git.elphel.com/Elphel/elphel-apps-imgsrv.git",
-            "master",""
+            "master","a73b06bce5eed8165a4e8de3148fa2e942809a7a"
         ],
         "elphel-apps-php-extension":[
             "https://git.elphel.com/Elphel/elphel-apps-php-extension.git",
-            "master",""
+            "master","b0c384ab130f19a02bbee4c7e36f416a35d2ce21"
         ],
         "elphel-apps-camogm":[
             "https://git.elphel.com/Elphel/elphel-apps-camogm.git",
-            "master",""
+            "master","bd6af7c55b363685968c49938cc945a1cd92d17e"
         ],
         "elphel-udev-rules":[
             "https://git.elphel.com/Elphel/elphel-udev-rules.git",
-            "master",""
+            "master","38b4b06bb0a242a401bb638b0b8704c86785edcd"
         ],
         "elphel-web-393":[
             "https://git.elphel.com/Elphel/elphel-web-393.git",
-            "master",""
+            "master","673481b1ebe0956cf85b9c5e61aafdf8db535f8c"
         ],
         "elphel-apps-autocampars":[
             "https://git.elphel.com/Elphel/elphel-apps-autocampars.git",
-            "master",""
+            "master","f53b3c4568bbcf9cb62dad44913865c416859069"
         ],
         "elphel-apps-autoexposure":[
             "https://git.elphel.com/Elphel/elphel-apps-autoexposure.git",
-            "master",""
+            "master","a74213fce144c28a57884be613c572f32b10b323"
         ],
         "elphel-apps-histograms":[
             "https://git.elphel.com/Elphel/elphel-apps-histograms.git",
-            "master",""
+            "master","eb6b74968741e1f53103e98758198765f975e066"
         ],
         "elphel-web-camvc":[
             "https://git.elphel.com/Elphel/elphel-web-camvc.git",
-            "master",""
+            "master","a1ca83739ecae7bcd9c100bd9ac4185494b87cb2"
         ],
         "elphel-apps-editconf":[
             "https://git.elphel.com/Elphel/elphel-apps-editconf.git",
-            "master",""
+            "master","93c66cb06b411ffb5b5a7b11c1207e1f3bbe47e3"
         ],
         "elphel-init":[
             "https://git.elphel.com/Elphel/elphel-init.git",
-            "master",""
+            "master","a013be9491b0c04fcb49aa1daca210a5ad95a5c6"
         ],
         "elphel-web-hwmon":[
             "https://git.elphel.com/Elphel/elphel-web-hwmon.git",
-            "master",""
+            "master","ed6d0bb7a74a49ddbf222fb87b9cc3c9e47b1ad5"
         ],
         "elphel-apps-tempmon":[
             "https://git.elphel.com/Elphel/elphel-apps-tempmon.git",
-            "master",""
+            "master","12132c59f00b537c7391348db35f9a7f832d337a"
         ],
         "elphel-apps-gps":[
             "https://git.elphel.com/Elphel/elphel-apps-gps.git",
-            "master",""
+            "master","988dea5a4e5f4b1947eb5c41cac5b0d72987793a"
         ],
         "elphel-apps-astreamer":[
             "https://git.elphel.com/Elphel/elphel-apps-astreamer.git",
-            "master",""
-        ]        
+            "master","e47bc4bcc2ba9232c5e8d8776e5408c060022733"
+        ]
     },
     "tools" : {
         "elphel-tools-update":[
             "https://git.elphel.com/Elphel/elphel-tools-update.git",
-            "master",""
+            "master","e930191b593026d9920b21e5a68810aef4167a8e"
         ]
     }
 }
