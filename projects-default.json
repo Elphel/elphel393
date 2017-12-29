@@ -8,6 +8,14 @@
             "https://github.com/Xilinx/meta-xilinx.git",
             "master","a18947c20dba2c0c38db8bde1ad4684995df4bbd"
         ],
+        "meta-golang":[
+            "https://github.com/madisongh/meta-golang"
+            "master","34d501186125b3abd1eba841dc027facd31f8979"
+        ],
+        "meta-rust":[
+            "https://github.com/meta-rust/meta-rust.git"
+            "master","8f46fe3e97777dfef5c938ddbb4943c1800a690c"
+        ],
         "meta-swupdate":[
             "https://github.com/sbabic/meta-swupdate.git",
             "master","0fb115e97187c069f0da90163f1f374a6b7a4af7"
@@ -19,7 +27,7 @@
         ],
         "meta-elphel393":[
             "https://git.elphel.com/Elphel/meta-elphel393.git",
-            "rocko","",
+            "rocko_ethereum","",
             "#master","a93edc1f91e82e5e613fa38bd800e307c348b9ee"
         ]
     },

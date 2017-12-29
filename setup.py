@@ -283,6 +283,8 @@ BBLAYERS = " \\
   {0}/meta/meta-ezynq \\
   {0}/meta/meta-elphel393 \\
   {0}/meta/meta-xilinx/meta-xilinx-bsp \\
+  {0}/meta/meta-golang \\
+  {0}/meta/meta-ezynq \\
   {0}/meta/meta-openembedded/meta-oe \\
   {0}/meta/meta-openembedded/meta-python \\
   {0}/meta/meta-openembedded/meta-networking \\
