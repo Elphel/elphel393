@@ -319,11 +319,13 @@ REMOTE_USER ?= "root"
 IDENTITY_FILE ?= "~/.ssh/id_rsa"
 COPY_TO_NAND = "0"
 
-REMOTE_IP ?= "192.168.0.9"
+REMOTE_IP      ?= "192.168.0.9"
+REMOTE_NETMASK ?= "255.255.255.0"
+REMOTE_GATEWAY ?= "192.168.0.15"
 
 INITSTRING ?= "init_elphel393.py \\"{\\
     \\\\"usb_hub\\\\"         :1,\\
-    \\\\"ip\\\\"              :1,\\
+    \\\\"ip\\\\"              :0,\\
     \\\\"imgsrv\\\\"          :1,\\
     \\\\"autoexp_daemon\\\\"  :1,\\
     \\\\"autocampars\\\\"     :1,\\
