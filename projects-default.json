@@ -112,6 +112,14 @@
         "elphel-apps-astreamer":[
             "https://git.elphel.com/Elphel/elphel-apps-astreamer.git",
             "rocko",""
+        ],
+        "ros2-scripts":[
+            "https://git.elphel.com/Elphel/ros2-scripts.git",
+            "master",""
+        ],
+        "ros2-interfaces":[
+            "https://git.elphel.com/Elphel/ros2-interfaces.git",
+            "master",""
         ]
     },
     "tools" : {
