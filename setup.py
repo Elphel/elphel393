@@ -336,6 +336,7 @@ INITSTRING ?= "init_elphel393.py \\"{\\
     \\\\"eyesis\\\\"          :0 \\
 }\\""
 MACHINE_DEVICETREE = "elphel393_4_mt9p006.dts"
+PREFERRED_PROVIDER_virtual/bootloader = "u-boot-ezynq-binaries"
 """)
 
 if missing_bblayers_conf==0:
