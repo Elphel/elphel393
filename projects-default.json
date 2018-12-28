@@ -2,7 +2,8 @@
     "meta"  : {
         "meta-openembedded":[
             "git://git.openembedded.org/meta-openembedded",
-            "master","34aa4c3202b427f59f843dc43a4e1afda4f81d13"
+            "thud","a15d7f6ebcb0ed76c83c28f854d55e3f9d5b3677",
+            "#master","34aa4c3202b427f59f843dc43a4e1afda4f81d13"
         ],
         "meta-xilinx":[
             "https://github.com/Xilinx/meta-xilinx.git",
@@ -10,16 +11,17 @@
         ],
         "meta-swupdate":[
             "https://github.com/sbabic/meta-swupdate.git",
-            "master","0fb115e97187c069f0da90163f1f374a6b7a4af7"
+            "thud","f2b44eb89dd1145444bbb976c693ad0f9382a2da",
+            "#master","0fb115e97187c069f0da90163f1f374a6b7a4af7"
         ],
         "meta-ezynq":[
             "https://git.elphel.com/Elphel/meta-ezynq.git",
-            "rocko","",
+            "thud","",
             "#master","00496002f513fc253f5356ee675fdcbb8b4a9962"
         ],
         "meta-elphel393":[
             "https://git.elphel.com/Elphel/meta-elphel393.git",
-            "rocko","",
+            "thud","",
             "#master","a93edc1f91e82e5e613fa38bd800e307c348b9ee"
         ],
         "meta-ros":[
@@ -29,11 +31,12 @@
     },
     "poky":[
         "git://git.yoctoproject.org/poky.git",
-        "master","72867393fe2004ab9f0ee23eb09a975c82938b9e"
+        "thud","074cd4f22c8084a9aa8d60af5746ec22120c3155",
+        "#master","72867393fe2004ab9f0ee23eb09a975c82938b9e"
     ],
     "linux-elphel" :[
         "https://git.elphel.com/Elphel/linux-elphel.git",
-        "rocko","",
+        "thud","",
         "#master","cc50d7fa07140e680b09a8add617e62b4ba35aa0"
     ],
     "fpga-elphel"  : {
