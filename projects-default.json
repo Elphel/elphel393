@@ -25,8 +25,8 @@
             "#master","a93edc1f91e82e5e613fa38bd800e307c348b9ee"
         ],
         "meta-ros":[
-            "https://github.com/bmwcarit/meta-ros.git",
-            "master","72068b17e4192b51e09c8dc633805a35edac8701"
+            "https://github.com/okdzhimiev/meta-ros.git",
+            "bouncy",""
         ]
     },
     "poky":[
