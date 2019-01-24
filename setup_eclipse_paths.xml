@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project_paths>
     <path>linux-elphel</path>
+    <path>rootfs-elphel/elphel-apps-astreamer</path>
     <path>rootfs-elphel/elphel-apps-autocampars</path>
     <path>rootfs-elphel/elphel-apps-autoexposure</path>
     <path>rootfs-elphel/elphel-apps-camogm</path>
