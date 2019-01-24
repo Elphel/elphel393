@@ -54,60 +54,59 @@
     "rootfs-elphel": {
         "elphel-apps-imgsrv":[
             "https://git.elphel.com/Elphel/elphel-apps-imgsrv.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-apps-php-extension":[
             "https://git.elphel.com/Elphel/elphel-apps-php-extension.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-apps-camogm":[
             "https://git.elphel.com/Elphel/elphel-apps-camogm.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-udev-rules":[
             "https://git.elphel.com/Elphel/elphel-udev-rules.git",
-            "rocko","",
-            "#master",""
+            "rocko",""
         ],
         "elphel-web-393":[
             "https://git.elphel.com/Elphel/elphel-web-393.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-apps-autocampars":[
             "https://git.elphel.com/Elphel/elphel-apps-autocampars.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-apps-autoexposure":[
             "https://git.elphel.com/Elphel/elphel-apps-autoexposure.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-apps-histograms":[
             "https://git.elphel.com/Elphel/elphel-apps-histograms.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-web-camvc":[
             "https://git.elphel.com/Elphel/elphel-web-camvc.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-apps-editconf":[
             "https://git.elphel.com/Elphel/elphel-apps-editconf.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-init":[
             "https://git.elphel.com/Elphel/elphel-init.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-web-hwmon":[
             "https://git.elphel.com/Elphel/elphel-web-hwmon.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-apps-tempmon":[
             "https://git.elphel.com/Elphel/elphel-apps-tempmon.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-apps-gps":[
             "https://git.elphel.com/Elphel/elphel-apps-gps.git",
-            "master",""
+            "rocko",""
         ],
         "elphel-apps-astreamer":[
             "https://git.elphel.com/Elphel/elphel-apps-astreamer.git",
@@ -115,11 +114,11 @@
         ],
         "ros2-scripts":[
             "https://git.elphel.com/Elphel/ros2-scripts.git",
-            "master",""
+            "rocko",""
         ],
         "ros2-interfaces":[
             "https://git.elphel.com/Elphel/ros2-interfaces.git",
-            "master",""
+            "rocko",""
         ]
     },
     "tools" : {
