@@ -2,10 +2,12 @@
     "meta"  : {
         "meta-openembedded":[
             "git://git.openembedded.org/meta-openembedded",
-            "master","34aa4c3202b427f59f843dc43a4e1afda4f81d13"
+            "warrior","",
+            "#master","34aa4c3202b427f59f843dc43a4e1afda4f81d13"
         ],
         "meta-xilinx":[
             "https://github.com/Xilinx/meta-xilinx.git",
+            "master-next","",
             "master","a18947c20dba2c0c38db8bde1ad4684995df4bbd"
         ],
         "meta-swupdate":[
@@ -14,12 +16,12 @@
         ],
         "meta-ezynq":[
             "https://git.elphel.com/Elphel/meta-ezynq.git",
-            "rocko","",
+            "warrior","",
             "#master","00496002f513fc253f5356ee675fdcbb8b4a9962"
         ],
         "meta-elphel393":[
             "https://git.elphel.com/Elphel/meta-elphel393.git",
-            "rocko","",
+            "warrior","",
             "#master","a93edc1f91e82e5e613fa38bd800e307c348b9ee"
         ],
         "meta-ros":[
@@ -29,17 +31,18 @@
     },
     "poky":[
         "git://git.yoctoproject.org/poky.git",
-        "master","72867393fe2004ab9f0ee23eb09a975c82938b9e"
+        "warrior","",
+        "#master","72867393fe2004ab9f0ee23eb09a975c82938b9e"
     ],
     "linux-elphel" :[
         "https://git.elphel.com/Elphel/linux-elphel.git",
-        "rocko","",
+        "warrior","",
         "#master","cc50d7fa07140e680b09a8add617e62b4ba35aa0"
     ],
     "fpga-elphel"  : {
         "x393"     :[
             "https://git.elphel.com/Elphel/x393.git",
-            "master","",
+            "lwir","",
             "#master","edcdce9550c20726618210149bc1cb4549fd00be"
         ],
         "x393_sata":[
@@ -58,7 +61,7 @@
         ],
         "elphel-apps-php-extension":[
             "https://git.elphel.com/Elphel/elphel-apps-php-extension.git",
-            "rocko",""
+            "warrior",""
         ],
         "elphel-apps-camogm":[
             "https://git.elphel.com/Elphel/elphel-apps-camogm.git",
