@@ -2,8 +2,7 @@
     "meta"  : {
         "meta-openembedded":[
             "git://git.openembedded.org/meta-openembedded",
-            "warrior","",
-            "#master","34aa4c3202b427f59f843dc43a4e1afda4f81d13"
+            "warrior","0afee3eacfd18a9962013830028f9e54b4973657"
         ],
         "meta-xilinx":[
             "https://github.com/Xilinx/meta-xilinx.git",
@@ -30,8 +29,7 @@
     },
     "poky":[
         "git://git.yoctoproject.org/poky.git",
-        "warrior","",
-        "#master","72867393fe2004ab9f0ee23eb09a975c82938b9e"
+        "warrior","e4ceb7fcdca3ec90d85796a7234e5554a518ca33"
     ],
     "linux-elphel" :[
         "https://git.elphel.com/Elphel/linux-elphel.git",
