@@ -7,8 +7,7 @@
         ],
         "meta-xilinx":[
             "https://github.com/Xilinx/meta-xilinx.git",
-            "master-next","",
-            "master","a18947c20dba2c0c38db8bde1ad4684995df4bbd"
+            "master","391c7054e88ae77abf18fe8a705ac7ff34c7dc79"
         ],
         "meta-swupdate":[
             "https://github.com/sbabic/meta-swupdate.git",
