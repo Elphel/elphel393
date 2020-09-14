@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Clones and sets up and updates everything, also creates local.conf
 
@@ -193,7 +193,7 @@ git_proto = read_git_proto(".git/config","git@")
 i=0
 for p,v in Projects.items():
     i = i + 1
-    print bcolors.BOLDWHITE+"Step "+str(i)+": "+p+bcolors.ENDC
+    print(bcolors.BOLDWHITE+"Step "+str(i)+": "+p+bcolors.ENDC)
 
     if isinstance(v,dict):
         #create dir
