@@ -1,19 +1,8 @@
-Note for developers: **To have SSH access to all Elphel's repositories clone this project using SSH**
-
-Note for users: **Some already built firmware images are available [here](http://community.elphel.com/files/393/). Also check [User Manual](https://wiki.elphel.com/wiki/Tmp_manual).**
-
 # elphel393
-The project contains scripts for fetching and setting up build environment that will generate firmware images for Elphel393 camera systems.
 
-It clones and configures several individual repositories, such as
-* https://git.elphel.com/Elphel/linux-elphel
-* https://git.elphel.com/Elphel/x393
-* http://git.yoctoproject.org
-* http://git.openembedded.org
-* https://github.com/Xilinx/meta-xilinx
-* https://git.elphel.com/Elphel/meta-elphel393
+The project contains scripts for setting up development environment to build firmware images for Elphel393 camera systems.
 
-The same script (*setup.py*) pulls updates from these repositories
+**Prebuilt firmware images are available [community.elphel.com/files/393/](http://community.elphel.com/files/393/).**
 
 ### Get environment
 #### Dependencies
