@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
-# Clones and sets up and updates everything, also creates local.conf
+'''
+Copyright 2020, Elphel Inc.
+SPDX-License-Identifier: GPL-3.0-or-later
 
-__author__ = "Elphel"
-__copyright__ = "Copyright 2016, Elphel, Inc."
-__license__ = "GPL"
-__version__ = "3.0+"
-__maintainer__ = "Oleg K Dzhimiev"
-__email__ = "oleg@elphel.com"
-__status__ = "Development"
+Author:      Oleg Dzhimiev <oleg@elphel.com>
+Description: Clones and sets up and updates everything, also creates local.conf
+'''
 
 import subprocess
 import os
@@ -58,7 +56,7 @@ def cloneandcheckout(name,item):
 
         cwd = os.getcwd()
         os.chdir(cwd+"/"+name)
-        read_remote = subprocess.check_output("git remote -v",shell=True)
+        read_remote = subprocess.check_output("git remote -v",shell=True).decode('utf-8')
         if read_remote.find(item[0])==-1:
             print(bcolors.WARNING+"Changing git remote to "+item[0]+bcolors.ENDC)
             shout("git remote set-url origin "+item[0])
@@ -176,10 +174,10 @@ def update_branch(names_from_conf,name_from_list,pars,git_proto):
 
 #self pull?
 print(bcolors.BOLDWHITE+"Step 0: Running self git pull"+bcolors.ENDC)
-selfpullresult = subprocess.check_output("git pull",shell=True)
+selfpullresult = subprocess.check_output("git pull",shell=True).strip().decode('utf-8')
 
-if selfpullresult.strip().decode('utf-8')!="Already up-to-date." and \
-   selfpullresult.strip().decode('utf-8')!="Already up to date.":
+if selfpullresult != "Already up-to-date." and \
+   selfpullresult != "Already up to date.":
     print(bcolors.WARNING+"Wasn't up-to-date. Please, rerun ./setup.py"+bcolors.ENDC)
     sys.exit()
 else:
