@@ -12,7 +12,7 @@ Prebuilt firmware: [community.elphel.com/files/393/](http://community.elphel.com
 
 ```sh
 # in Kubuntu 20.04 this will install python2 which is used by poky[warrior]
-$ sudo apt install python python-numpy
+$ sudo apt install python python-numpy python3-numpy
 # below fixes missing error when compiling the kernel: missing "openssl/bio.h":
 $ sudo apt install libssl-dev
 ```
