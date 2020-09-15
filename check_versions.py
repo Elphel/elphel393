@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 
-# Check software versions on the target
+'''
+Copyright 2020, Elphel Inc.
+SPDX-License-Identifier: GPL-3.0-or-later
 
-__author__ = "Elphel"
-__copyright__ = "Copyright 2016, Elphel, Inc."
-__license__ = "GPL"
-__version__ = "3.0+"
-__maintainer__ = "Oleg K Dzhimiev"
-__email__ = "oleg@elphel.com"
-__status__ = "Development"
+Author:      Oleg Dzhimiev <oleg@elphel.com>
+Description: Check software versions on the target
+'''
 
 import json
 import os
