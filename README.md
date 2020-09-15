@@ -21,7 +21,10 @@ The same script (*setup.py*) pulls updates from these repositories
 * extra requirement
 
 ```sh
-$ sudo apt install python-numpy
+# in Kubuntu 20.04 this will install python2 which is used by poky[warrior]
+$ sudo apt install python python-numpy
+# below fixes missing error when compiling the kernel: missing "openssl/bio.h":
+$ sudo apt install libssl-dev
 ```
 
 #### Get sources
