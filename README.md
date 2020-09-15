@@ -21,12 +21,18 @@ $ sudo apt install libssl-dev
 * same as for Kubuntu 20.04
 * run setup.py then roll back [meta-elphel393](https://git.elphel.com/Elphel/meta-elphel393) to [6e0687d745e8962ec979e59ed600203c97d92cff](https://git.elphel.com/Elphel/meta-elphel393/commit/6e0687d745e8962ec979e59ed600203c97d92cff)
 
-### Setup
+## Clone this repo ('warrior' branch recommended)
+
+```sh
+git clone -b warrior https://git.elphel.com/Elphel/elphel393.git
+```
+
+## Setup
 ```sh
 $ ./setup.py
 ```
 
-### Build
+## Build
 ```sh
 $ cd poky
 $ . ./oe-init-build-env
@@ -38,11 +44,11 @@ $ bitbake u-boot device-tree linux-xlnx core-image-elphel393
 
 [1]: http://wiki.elphel.com/index.php?title=Poky_2.0_manual
 
-### Update and refresh environment
+## Update and refresh environment
 ```sh
 $ ./setup.py
 ```
-### Rebuild targets
+## Rebuild targets
 ```sh
 $ cd poky
 $ . ./oe-init-build-env
@@ -50,10 +56,10 @@ $ (if changes in the kernel) bitbake linux-xlnx -c link -f; bitbake linux-xlnx
 $ (if changes in the rootfs and the kernel) bitbake core-image-elphel393
 ```
 
-### More info
+## More info
 
 [**Development for 10393**](https://wiki.elphel.com/wiki/Development_for_10393)
 
-### Support
+## Support
 
 support-list@support.elphel.com
