@@ -1,11 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 Copyright 2020, Elphel Inc.
 SPDX-License-Identifier: GPL-3.0-or-later
 
 Author:      Oleg Dzhimiev <oleg@elphel.com>
-Description: Check software versions on the target
+Description: Compares software versions between local GIT and hardware target
 '''
 
 import json
@@ -69,8 +69,8 @@ def get_versions_from_target_quick(addr,tdir):
   shout("scp -r "+addr+":"+tdir+" .")
   
   remote_list = []
-  
-  for f in os.listdir(ldir):
+
+  for f in sorted(os.listdir(ldir)):
     with open(ldir+"/"+f, 'r') as content_file:
       content = content_file.read()
     remote_list.append([f,content.strip()])
@@ -99,8 +99,7 @@ def get_version_from_git(path,vfile):
     #PR
     
     cmd = "git rev-list --count $(git log -1 --pretty=format:\"%H\" "+vfile+")..HEAD"
-    p1 = subprocess.check_output(cmd,stderr=subprocess.STDOUT,shell=True)
-    p1 = p1.strip()
+    p1 = subprocess.check_output(cmd,stderr=subprocess.STDOUT,shell=True).strip().decode('utf-8')
         
   else:
     print(vfile+" file is missing in the project")
@@ -115,6 +114,9 @@ def deep_analysis(local,remote):
   
   update_list = ""
   for pl,vl in local:
+    # pl is <class 'bytes'>
+    # vl is <class 'str'>
+    pl = pl.decode('utf-8')
     recstr = "{:<24}".format(pl)+"{:<16}".format(vl)
     prfound = False
     for pr,vr in remote:
@@ -221,6 +223,9 @@ for p,v in Projects.items():
       local_list.append([p.encode('ascii','ignore'),tmp])
     else:
       raise Exception("Unknown error")
+
+# sort [[a,va],[b,vb]] by key 0
+local_list = sorted(local_list, key=lambda x: x[0])
 
 #print(local_list)
 
