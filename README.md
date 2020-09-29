@@ -24,7 +24,7 @@ $ sudo apt install libssl-dev
 ## Clone this repo ('warrior' branch recommended)
 
 ```sh
-git clone -b warrior https://git.elphel.com/Elphel/elphel393.git
+$ git clone -b warrior https://git.elphel.com/Elphel/elphel393.git
 ```
 
 ## Setup
