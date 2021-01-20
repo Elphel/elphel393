@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding: utf-8
-from __future__ import print_function
-from __future__ import division
+# from __future__ import print_function
+# from __future__ import division
 
 '''
 # Copyright (C) 2017, Elphel.inc.
@@ -189,7 +189,7 @@ The program will not overwrite or modify any existing workspace.
             for l in bin_str:
                 data.append(ord(l))
         ba=bytearray(data)
-        with open(properties_index, 'w') as f:
+        with open(properties_index, 'wb') as f:
             f.write(ba)
          
 if __name__ == "__main__":
