@@ -33,7 +33,7 @@
     ],
     "linux-elphel" :[
         "https://git.elphel.com/Elphel/linux-elphel.git",
-        "warrior","",
+        "warrior-boson","",
         "#master","cc50d7fa07140e680b09a8add617e62b4ba35aa0"
     ],
     "fpga-elphel"  : {
